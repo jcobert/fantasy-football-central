@@ -2,10 +2,11 @@ import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { ReactNode } from 'react'
 
+import { authOptions } from '@/utils/auth/config'
+
 import { AuthProvider } from '@/providers/auth-provider'
 import QueryProvider from '@/providers/query-provider'
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import { siteConfig } from '@/configuration/site'
 import '@/styles/tailwind.css'
 
