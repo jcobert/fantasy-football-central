@@ -1,7 +1,7 @@
 export const siteConfig = {
-  title: '',
-  description: '',
-  url: process.env.SITE_BASE_URL || '',
+  title: 'Fantasy Football Central',
+  description: 'A custom Yahoo fantasy football app.',
+  url: process.env.NEXT_PUBLIC_SITE_BASE_URL || '',
 }
 
 /** Appends the provided pathname to the site's base URL. */

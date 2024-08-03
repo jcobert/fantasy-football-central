@@ -1,17 +1,21 @@
 import { Metadata } from 'next'
+import { getServerSession } from 'next-auth'
 import { ReactNode } from 'react'
 
+import { AuthProvider } from '@/providers/auth-provider'
 import QueryProvider from '@/providers/query-provider'
 
+import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import { siteConfig } from '@/configuration/site'
 import '@/styles/tailwind.css'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
-  title: {
-    default: siteConfig.title,
-    template: `%s | ${siteConfig.title}`,
-  },
+  // title: {
+  //   default: siteConfig.title,
+  //   template: `%s | ${siteConfig.title}`,
+  // },
+  title: siteConfig.title,
   description: siteConfig.description,
   robots: { index: true, follow: true },
   // icons: {
@@ -37,17 +41,25 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: ReactNode
+}) {
+  const session = await getServerSession(authOptions)
+
   return (
     <html lang='en'>
       <body>
-        <QueryProvider>
-          <div className='flex flex-col min-h-[100dvh]'>
-            {/** @todo Header here */}
-            <div className='grow'>{children}</div>
-            {/** @todo Footer here */}
-          </div>
-        </QueryProvider>
+        <AuthProvider session={session}>
+          <QueryProvider>
+            <div className='flex flex-col min-h-[100dvh]'>
+              {/** @todo Header here */}
+              <div className='grow'>{children}</div>
+              {/** @todo Footer here */}
+            </div>
+          </QueryProvider>
+        </AuthProvider>
       </body>
     </html>
   )
