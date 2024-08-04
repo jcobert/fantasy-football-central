@@ -16,7 +16,7 @@ export default async function middleware(req: NextRequest) {
     url.pathname = '/dashboard'
     if (session) return NextResponse.redirect(url)
     return NextResponse.next()
-  }
+  } else if (!session) return NextResponse.redirect('/')
 
   return NextResponse.next()
 }

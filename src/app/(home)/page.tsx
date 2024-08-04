@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
 import { FC } from 'react'
 
+import { authRedirect } from '@/utils/auth/helpers'
+
 import AuthLink from '@/components/common/auth-link'
 import PageLayout from '@/components/layout/page-layout'
 
@@ -10,7 +12,9 @@ export const metadata: Metadata = {
   title: buildPageTitle('Home'),
 }
 
-const Page: FC = () => {
+const Page: FC = async () => {
+  await authRedirect({ authorized: true, url: '/dashboard' })
+
   return (
     <PageLayout>
       <div className='flex flex-col items-center gap-6 sm:px-16 pb-4'>

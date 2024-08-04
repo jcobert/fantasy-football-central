@@ -1,6 +1,7 @@
 import { SessionToken, YahooAuthTokenSet } from './types'
 import { getServerSession } from 'next-auth'
 import { getToken } from 'next-auth/jwt'
+import { redirect } from 'next/navigation'
 import { NextRequest } from 'next/server'
 
 export const isAccessTokenExpired = (token: SessionToken) => {
@@ -55,4 +56,16 @@ export const getAccessToken = async (req: NextRequest) => {
   }
 
   return newToken?.accessToken || token?.accessToken
+}
+
+export const authRedirect = async (options?: {
+  url?: string
+  authorized?: boolean
+}) => {
+  const session = await getServerSession()
+  const isAuthenticated = !!session?.user
+  const { authorized = false, url = '/' } = options || {}
+  if (!authorized ? !isAuthenticated : isAuthenticated) {
+    redirect(url)
+  }
 }
