@@ -9,8 +9,7 @@ export const dynamic = 'force-dynamic'
 export const GET = async (req: NextRequest) => {
   try {
     const accessToken = await getAccessToken(req)
-    const url = new URL(req?.url || '')
-    const params = url?.searchParams
+    const params = req.nextUrl?.searchParams
     const teamKeys = params?.get('teamKeys') || ''
     const resource = params?.get('resource') || ''
     const subresource = params?.get('subresource') || ''
