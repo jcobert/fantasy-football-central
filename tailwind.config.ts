@@ -11,6 +11,7 @@ export default {
       fontFamily: {
         body: ['Inter', ...defaultTheme.fontFamily.sans],
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
+        nunito: ['var(--font-nunito)', ...defaultTheme.fontFamily.sans],
       },
       colors: {
         // Brand

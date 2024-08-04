@@ -1,20 +1,24 @@
 import { Metadata } from 'next'
 import { FC } from 'react'
 
+import { authRedirect } from '@/utils/auth/helpers'
+
 import PageLayout from '@/components/layout/page-layout'
 
 import { buildPageTitle } from '@/configuration/seo'
 
 export const metadata: Metadata = {
-  title: buildPageTitle('Home'),
+  title: buildPageTitle('Dashboard'),
 }
 
-const HomePage: FC = () => {
+const Page: FC = async () => {
+  await authRedirect()
+
   return (
-    <PageLayout>
+    <PageLayout heading='Dashboard'>
       <div></div>
     </PageLayout>
   )
 }
 
-export default HomePage
+export default Page

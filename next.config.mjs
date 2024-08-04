@@ -11,7 +11,26 @@ const nextConfig = withPlugins(
     reactStrictMode: true,
     experimental: { instrumentationHook: true, taint: true },
     images: {
-      remotePatterns: [],
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: '**.yimg.com',
+          port: '',
+          pathname: '/**',
+        },
+        {
+          protocol: 'https',
+          hostname: '**.yahoo.com',
+          port: '',
+          pathname: '/**',
+        },
+        {
+          protocol: 'https',
+          hostname: 'yahoofantasysports-res.cloudinary.com',
+          port: '',
+          pathname: '/**',
+        },
+      ],
       minimumCacheTTL: 31536000,
     },
     rewrites() {

@@ -1,11 +1,14 @@
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
+import { Nunito } from 'next/font/google'
 import { ReactNode } from 'react'
+import { Toaster } from 'react-hot-toast'
 
 import { authOptions } from '@/utils/auth/config'
 
 import { AuthProvider } from '@/providers/auth-provider'
 import QueryProvider from '@/providers/query-provider'
+import ThemeProvider from '@/providers/theme-provider'
 
 import { siteConfig } from '@/configuration/site'
 import '@/styles/tailwind.css'
@@ -42,6 +45,11 @@ export const metadata: Metadata = {
   },
 }
 
+const nunito = Nunito({
+  variable: '--font-nunito',
+  subsets: ['latin'],
+})
+
 export default async function RootLayout({
   children,
 }: {
@@ -50,15 +58,22 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions)
 
   return (
-    <html lang='en'>
-      <body>
+    <html lang='en' suppressHydrationWarning>
+      <body className={`${nunito.variable} font-nunito`}>
         <AuthProvider session={session}>
           <QueryProvider>
-            <div className='flex flex-col min-h-[100dvh]'>
-              {/** @todo Header here */}
-              <div className='grow'>{children}</div>
-              {/** @todo Footer here */}
-            </div>
+            <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+              <Toaster
+                position='top-right'
+                toastOptions={{ success: { duration: 4000 } }}
+              />
+              <div className='flex flex-col min-h-[100dvh]'>
+                {/** @todo Header here */}
+                <div className='grow'>{children}</div>
+                {/** @todo Footer here */}
+              </div>
+              <Toaster />
+            </ThemeProvider>
           </QueryProvider>
         </AuthProvider>
       </body>
