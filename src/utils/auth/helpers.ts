@@ -1,7 +1,7 @@
 import { SessionToken, YahooAuthTokenSet } from './types'
-import { NextApiRequest } from 'next'
 import { getServerSession } from 'next-auth'
 import { getToken } from 'next-auth/jwt'
+import { NextRequest } from 'next/server'
 
 export const isAccessTokenExpired = (token: SessionToken) => {
   return !!token?.expiresAt && Date.now() > token?.expiresAt * 1000
@@ -45,7 +45,7 @@ export const refreshAccessToken = async (token: SessionToken) => {
  * Returns current access token if valid, or refreshes and returns new token if expired.
  * Use in API routes.
  */
-export const getAccessToken = async (req: NextApiRequest) => {
+export const getAccessToken = async (req: NextRequest) => {
   const token = (await getToken({ req })) as SessionToken
   const session = await getServerSession()
 

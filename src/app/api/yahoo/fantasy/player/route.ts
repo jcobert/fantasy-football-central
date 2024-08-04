@@ -1,13 +1,12 @@
 import axios from 'axios'
-import { NextApiRequest } from 'next'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 import { getAccessToken } from '@/utils/auth/helpers'
 import { parser } from '@/utils/xml'
 
 export const dynamic = 'force-dynamic'
 
-export const GET = async (req: NextApiRequest) => {
+export const GET = async (req: NextRequest) => {
   try {
     const accessToken = await getAccessToken(req)
     const url = new URL(req?.url || '')
