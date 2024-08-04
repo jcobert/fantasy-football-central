@@ -20,8 +20,7 @@ export const baseTwitter: Metadata['twitter'] = {
   card: 'summary_large_image',
   title: siteConfig.title,
   description: siteConfig.description,
-  // Add path to default image.
-  images: [''],
+  images: ['/images/logo.png'],
 }
 
 export const openGraphMeta = (

@@ -23,15 +23,15 @@
 
 @layer components {
   .btn {
-    @apply disabled:bg-brand/disabled flex min-w-[6rem] cursor-pointer items-center justify-center gap-2 rounded border border-brand bg-brand px-8 py-3 text-almost-white shadow transition hover:bg-brand-dark hover:shadow-sm disabled:cursor-not-allowed disabled:border-brand/25 max-sm:w-full max-sm:text-lg sm:px-4 sm:py-1;
+    @apply flex min-w-[6rem] cursor-pointer items-center justify-center gap-2 rounded border border-brand bg-brand px-8 py-3 text-almost-white shadow transition hover:bg-brand-dark hover:shadow-sm disabled:cursor-not-allowed disabled:border-brand/25 disabled:bg-brand/90 max-sm:w-full max-sm:text-lg sm:px-4 sm:py-1;
   }
 
   .btn-outline {
-    @apply btn disabled:bg-almost-white/disabled disabled:text-brand/disabled border border-brand bg-almost-white text-brand hover:border-brand-dark hover:bg-brand-light/5 hover:text-brand-dark disabled:border-brand/25;
+    @apply btn border border-brand bg-almost-white text-brand hover:border-brand-dark hover:bg-brand-light/5 hover:text-brand-dark disabled:border-brand/25 disabled:bg-almost-white/90 disabled:text-brand/90;
   }
 
   .btn-text {
-    @apply disabled:text-brand/disabled flex cursor-pointer items-center justify-center gap-2 rounded border border-transparent p-1 text-brand transition hover:text-brand-dark disabled:cursor-not-allowed max-sm:text-lg;
+    @apply flex cursor-pointer items-center justify-center gap-2 rounded border border-transparent p-1 text-brand transition hover:text-brand-dark disabled:cursor-not-allowed disabled:text-brand/90 max-sm:text-lg;
   }
 }
 

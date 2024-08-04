@@ -3,13 +3,15 @@ import { FC } from 'react'
 
 import PageLayout from '@/components/layout/page-layout'
 
+import { buildPageTitle } from '@/configuration/seo'
+
 export const metadata: Metadata = {
-  title: 'Home',
+  title: buildPageTitle('Home'),
 }
 
 const HomePage: FC = () => {
   return (
-    <PageLayout heading='Home'>
+    <PageLayout>
       <div></div>
     </PageLayout>
   )

@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from 'next/og'
 
+import { PUBLIC_ASSET_URL_BASE } from '@/utils/env'
+
 import { siteConfig } from '@/configuration/site'
 
 export const runtime = 'edge'
@@ -11,10 +13,7 @@ export const GET = async (request: Request) => {
 
     // Base logo image
     const logoData = (await fetch(
-      new URL(
-        `${process.env.SITE_BASE_URL}/images/logo-expanded.png`,
-        import.meta.url,
-      ),
+      new URL(`${PUBLIC_ASSET_URL_BASE}/images/logo.png`, import.meta.url),
     ).then((res) => res.arrayBuffer())) as string
 
     // Dynamic data
@@ -30,11 +29,8 @@ export const GET = async (request: Request) => {
         <div
           style={{
             backgroundColor: '#FDFDFF',
-            // backgroundSize: '150px 150px',
             height: '100%',
             width: '100%',
-            // height: 1200,
-            // width: 630,
             display: 'flex',
             textAlign: 'center',
             alignItems: 'center',
@@ -51,7 +47,6 @@ export const GET = async (request: Request) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 justifyItems: 'center',
-                // width: '100%',
               }}
             >
               <img
@@ -61,8 +56,6 @@ export const GET = async (request: Request) => {
                 src={imgUrl}
                 style={{
                   backgroundSize: 'contain',
-                  // backgroundPosition: 'center'
-                  // margin: '0 30px',
                 }}
               />
             </div>
@@ -79,10 +72,8 @@ export const GET = async (request: Request) => {
           >
             <img
               alt={siteConfig?.title}
-              // width={600}
-              // height={184}
               src={logoData}
-              style={{ margin: '0 30px', width: '80%' }}
+              style={{ margin: '0 30px', width: '20%' }}
             />
           </div>
 
@@ -107,11 +98,7 @@ export const GET = async (request: Request) => {
                 padding: '0 120px',
                 lineHeight: 1.4,
                 whiteSpace: 'pre-wrap',
-                // color: '#E46169',
-                backgroundImage:
-                  'linear-gradient(to bottom right, rgb(228, 97, 105), rgb(228, 97, 105, 0.75))',
-                backgroundClip: 'text',
-                color: 'transparent',
+                color: '#1F2023',
               }}
             >
               {title}
