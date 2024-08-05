@@ -7,6 +7,7 @@ import { Toaster } from 'react-hot-toast'
 import { authOptions } from '@/utils/auth/config'
 
 import { AuthProvider } from '@/providers/auth-provider'
+import NextUiProvider from '@/providers/next-ui-provider'
 import QueryProvider from '@/providers/query-provider'
 import ThemeProvider from '@/providers/theme-provider'
 
@@ -66,16 +67,18 @@ export default async function RootLayout({
         <AuthProvider session={session}>
           <QueryProvider>
             <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-              <Toaster
-                position='top-right'
-                toastOptions={{ success: { duration: 4000 } }}
-              />
-              <div className='flex flex-col min-h-[100dvh]'>
-                <Header />
-                <div className='grow'>{children}</div>
-                <Footer />
-              </div>
-              <Toaster />
+              <NextUiProvider>
+                <Toaster
+                  position='top-right'
+                  toastOptions={{ success: { duration: 4000 } }}
+                />
+                <div className='flex flex-col min-h-[100dvh]'>
+                  <Header />
+                  <div className='grow'>{children}</div>
+                  <Footer />
+                </div>
+                <Toaster />
+              </NextUiProvider>
             </ThemeProvider>
           </QueryProvider>
         </AuthProvider>
