@@ -7,15 +7,15 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from '@nextui-org/navbar'
-import { useSession } from 'next-auth/react'
+import { Session } from 'next-auth'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { FC, useState } from 'react'
-import { FaRegCircleUser } from 'react-icons/fa6'
 
 import { cn } from '@/utils/style'
 
 import Accordion from '@/components/common/accordion'
+import { UserGreeting } from '@/components/layout/header/user-menu'
 import LoginLink from '@/components/login-link'
 import Logo from '@/components/logo'
 
@@ -23,15 +23,16 @@ import { isActive, navItems } from '@/configuration/nav'
 
 type Props = {
   className?: string
+  session: Session | null
 }
 
-const MobileNav: FC<Props> = ({ className }) => {
+const MobileNav: FC<Props> = ({ className, session }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const pathname = usePathname()
-  const session = useSession()
 
-  const { status, data } = session
-  const { user } = data || {}
+  const { user } = session || {}
+
+  const items = user ? navItems : []
 
   return (
     <Navbar
@@ -58,16 +59,11 @@ const MobileNav: FC<Props> = ({ className }) => {
       {/* Menu */}
       <NavbarMenu className='px-8 overflow-y-auto pb-16 bg bg-background/80'>
         {/* User */}
-        {user ? (
-          <div className='flex items-center gap-2 border-b__ py-4'>
-            <FaRegCircleUser className='text-xl' />
-            <span className='text-center'>{`Hi, ${user?.name}`}</span>
-          </div>
-        ) : null}
+        {user ? <UserGreeting user={user} /> : null}
 
         {/* Links */}
         <div className='flex flex-col gap-6 mt-6 pb-safe mb-24'>
-          {navItems?.map((item) => {
+          {items?.map((item) => {
             const hasMenu = !!item?.menu?.links?.length
             return (
               <NavbarMenuItem
@@ -125,10 +121,7 @@ const MobileNav: FC<Props> = ({ className }) => {
           })}
         </div>
 
-        <LoginLink
-          authenticated={status === 'authenticated'}
-          className='mt-auto'
-        />
+        <LoginLink authenticated={!!session?.user} className='mt-auto' />
       </NavbarMenu>
     </Navbar>
   )
