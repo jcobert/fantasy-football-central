@@ -18,6 +18,7 @@ export default {
         brand: '#4A88EA',
         'brand-light': '#5D9AF9',
         'brand-dark': '#3D75CE',
+        'brand-alt': '#FB923C',
         // Generic
         'medium-gray': '#696A72',
         'dark-gray': '#5B5D6B',
@@ -28,6 +29,19 @@ export default {
       fontSize: {
         '2xs': ['0.625rem', '0.75rem'],
       },
+      height: {
+        // Viewport height minus navbar and footer heights
+        'page-mobile': 'var(--page-height-mobile)',
+        page: 'var(--page-height)',
+      },
+      minHeight: ({ theme }) => ({
+        'page-mobile': theme('height.page-mobile'),
+        page: theme('height.page'),
+      }),
+      maxHeight: ({ theme }) => ({
+        'page-mobile': theme('height.page-mobile'),
+        page: theme('height.page'),
+      }),
       maxWidth: {
         layout: '68.75rem',
       },

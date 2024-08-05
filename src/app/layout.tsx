@@ -10,6 +10,9 @@ import { AuthProvider } from '@/providers/auth-provider'
 import QueryProvider from '@/providers/query-provider'
 import ThemeProvider from '@/providers/theme-provider'
 
+import Footer from '@/components/layout/footer'
+import Header from '@/components/layout/header/header'
+
 import { siteConfig } from '@/configuration/site'
 import '@/styles/tailwind.css'
 
@@ -68,9 +71,9 @@ export default async function RootLayout({
                 toastOptions={{ success: { duration: 4000 } }}
               />
               <div className='flex flex-col min-h-[100dvh]'>
-                {/** @todo Header here */}
+                <Header />
                 <div className='grow'>{children}</div>
-                {/** @todo Footer here */}
+                <Footer />
               </div>
               <Toaster />
             </ThemeProvider>
