@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 import { authRedirect } from '@/utils/auth/helpers'
 
-import AuthLink from '@/components/common/auth-link'
+import AuthLink from '@/components/auth-link'
 import PageLayout from '@/components/layout/page-layout'
 
 import { buildPageTitle } from '@/configuration/seo'

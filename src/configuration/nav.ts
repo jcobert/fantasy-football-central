@@ -5,9 +5,13 @@ export type NavLink = {
   name: string
   url: string
   description?: string
+  hidden?: boolean
 }
 
-export type NavMenu = { links: NavLink[]; img?: HTMLProps<HTMLImageElement> }
+export type NavMenu = {
+  links: NavLink[]
+  img?: HTMLProps<HTMLImageElement>
+}
 
 export type NavItem = NavLink & { menu?: NavMenu }
 
@@ -18,4 +22,7 @@ export const getRowSpan = (menu: NavMenu) => {
   return `row-span-${menu?.links?.length ?? 3}`
 }
 
-export const navItems: NavItem[] = []
+export const navItems: NavItem[] = [
+  { id: 'league', name: 'League', url: '/league' },
+  { id: 'matchups', name: 'Matchups', url: '/matchups' },
+]

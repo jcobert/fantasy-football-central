@@ -1,9 +1,13 @@
+import { nextui } from '@nextui-org/react'
 import type { Config } from 'tailwindcss'
 import defaultTheme from 'tailwindcss/defaultTheme'
 import plugin from 'tailwindcss/plugin'
 
 export default {
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  content: [
+    './src/**/*.{js,jsx,ts,tsx}',
+    './node_modules/@nextui-org/theme/dist/components/navbar.js',
+  ],
   darkMode: 'class',
   future: { hoverOnlyWhenSupported: true },
   theme: {
@@ -18,6 +22,7 @@ export default {
         brand: '#4A88EA',
         'brand-light': '#5D9AF9',
         'brand-dark': '#3D75CE',
+        'brand-alt': '#FB923C',
         // Generic
         'medium-gray': '#696A72',
         'dark-gray': '#5B5D6B',
@@ -28,6 +33,19 @@ export default {
       fontSize: {
         '2xs': ['0.625rem', '0.75rem'],
       },
+      height: {
+        // Viewport height minus navbar and footer heights
+        'page-mobile': 'var(--page-height-mobile)',
+        page: 'var(--page-height)',
+      },
+      minHeight: ({ theme }) => ({
+        'page-mobile': theme('height.page-mobile'),
+        page: theme('height.page'),
+      }),
+      maxHeight: ({ theme }) => ({
+        'page-mobile': theme('height.page-mobile'),
+        page: theme('height.page'),
+      }),
       maxWidth: {
         layout: '68.75rem',
       },
@@ -188,5 +206,6 @@ export default {
         }),
       })
     }),
+    nextui(),
   ],
 } satisfies Config

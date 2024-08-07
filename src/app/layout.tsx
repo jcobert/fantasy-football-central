@@ -7,8 +7,12 @@ import { Toaster } from 'react-hot-toast'
 import { authOptions } from '@/utils/auth/config'
 
 import { AuthProvider } from '@/providers/auth-provider'
+import NextUiProvider from '@/providers/next-ui-provider'
 import QueryProvider from '@/providers/query-provider'
 import ThemeProvider from '@/providers/theme-provider'
+
+import Footer from '@/components/layout/footer'
+import Header from '@/components/layout/header/header'
 
 import { siteConfig } from '@/configuration/site'
 import '@/styles/tailwind.css'
@@ -63,16 +67,18 @@ export default async function RootLayout({
         <AuthProvider session={session}>
           <QueryProvider>
             <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-              <Toaster
-                position='top-right'
-                toastOptions={{ success: { duration: 4000 } }}
-              />
-              <div className='flex flex-col min-h-[100dvh]'>
-                {/** @todo Header here */}
-                <div className='grow'>{children}</div>
-                {/** @todo Footer here */}
-              </div>
-              <Toaster />
+              <NextUiProvider>
+                <Toaster
+                  position='top-right'
+                  toastOptions={{ success: { duration: 4000 } }}
+                />
+                <div className='flex flex-col min-h-[100dvh]'>
+                  <Header />
+                  <div className='grow'>{children}</div>
+                  <Footer />
+                </div>
+                <Toaster />
+              </NextUiProvider>
             </ThemeProvider>
           </QueryProvider>
         </AuthProvider>

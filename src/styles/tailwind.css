@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Navbar height + footer height */
+  --frame-mobile: 97px;
+  --frame: 90px;
+  /* Viewport height minus navbar and footer heights */
+  --page-height-mobile: calc(100dvh - var(--frame-mobile));
+  --page-height: calc(100dvh - var(--frame));
+}
+
 @layer base {
   body {
     @apply bg-background;
