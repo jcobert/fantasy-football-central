@@ -1,7 +1,6 @@
 'use client'
 
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
-import Image from 'next/image'
 import Link from 'next/link'
 import React, { FC, ReactNode } from 'react'
 import { FaAngleUp } from 'react-icons/fa6'

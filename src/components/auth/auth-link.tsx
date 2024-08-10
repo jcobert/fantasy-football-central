@@ -1,21 +1,30 @@
-import { getServerSession } from 'next-auth'
+'use client'
+
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { FC } from 'react'
 import { TbLogout2 } from 'react-icons/tb'
 
 import { cn } from '@/utils/style'
 
+import { useCallbackUrl } from '@/hooks/use-callback-url'
+
 type Props = {
   className?: string
   type?: 'login' | 'logout' | 'dynamic'
 }
 
-const AuthLink: FC<Props> = async ({ className, type = 'dynamic' }) => {
-  const session = await getServerSession()
-  const isAuthenticated = !!session?.user
+const AuthLink: FC<Props> = ({ className, type = 'dynamic' }) => {
+  const session = useSession()
+  const callbackUrl = useCallbackUrl()
+
+  const isAuthenticated = session?.status === 'authenticated'
 
   const Login = (
-    <Link href='/api/auth/signin' className={cn('btn sm:w-fit', className)}>
+    <Link
+      href={`/api/auth/signin?callbackUrl=${callbackUrl}`}
+      className={cn('btn sm:w-fit', className)}
+    >
       <span>Sign in</span>
     </Link>
   )
