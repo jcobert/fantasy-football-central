@@ -2,7 +2,7 @@ import { Session } from 'next-auth'
 import { FC } from 'react'
 import { FaRegCircleUser } from 'react-icons/fa6'
 
-import AuthLink from '@/components/auth/auth-link'
+import SignOut from '@/components/auth/signout'
 import Popover from '@/components/common/popover'
 import UserGreeting from '@/components/layout/header/user-greeting'
 
@@ -19,8 +19,7 @@ const UserMenu: FC<{ session: Session | null }> = ({ session }) => {
     >
       <div className='bg-white rounded border p-2 px-4 shadow flex flex-col gap-4 min-w-56'>
         <UserGreeting user={user} />
-
-        <AuthLink className='mx-auto' />
+        <SignOut />
       </div>
     </Popover>
   )

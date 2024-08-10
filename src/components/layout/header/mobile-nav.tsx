@@ -121,7 +121,7 @@ const MobileNav: FC<Props> = ({ className, session }) => {
           })}
         </div>
 
-        <AuthLink className='mt-auto' />
+        <AuthLink className='mt-auto' onClick={() => setIsMenuOpen(false)} />
       </NavbarMenu>
     </Navbar>
   )

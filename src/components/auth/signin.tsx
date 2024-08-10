@@ -7,7 +7,7 @@ import { FC } from 'react'
 
 import { authOptions } from '@/utils/auth/config'
 
-const Signin: FC = () => {
+const SignIn: FC = () => {
   const searchParams = useSearchParams()
   const callbackUrl = searchParams.get('callbackUrl') || '/'
 
@@ -27,4 +27,4 @@ const Signin: FC = () => {
   )
 }
 
-export default Signin
+export default SignIn
