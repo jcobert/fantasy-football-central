@@ -15,7 +15,7 @@ const Page: FC = async () => {
 
   return (
     <PageLayout pageClassName='items-center'>
-      <SignOut />
+      <SignOut asAlert={false} />
     </PageLayout>
   )
 }
