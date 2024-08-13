@@ -1,7 +1,7 @@
 'use client'
 
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
-import Image from 'next/image'
+import { Session } from 'next-auth'
 import Link from 'next/link'
 import React, { FC, ReactNode } from 'react'
 import { FaAngleUp } from 'react-icons/fa6'
@@ -16,9 +16,12 @@ import { navItems } from '@/configuration/nav'
 type Props = {
   className?: string
   children?: ReactNode
+  session?: Session | null
 }
 
-const DesktopNav: FC<Props> = ({ className, children }) => {
+const DesktopNav: FC<Props> = ({ className, children, session }) => {
+  const isAuthenticated = !!session?.user
+  const items = isAuthenticated ? navItems : []
   return (
     <div
       id='desktop-nav'
@@ -35,7 +38,7 @@ const DesktopNav: FC<Props> = ({ className, children }) => {
         </Link>
         <NavigationMenu.Root className='z-[1] flex justify-center'>
           <NavigationMenu.List className='center m-0 flex gap-1 list-none rounded-[6px] p-1'>
-            {navItems?.map((item) => {
+            {items?.map((item) => {
               const hasMenu = !!item?.menu?.links?.length
               return (
                 <NavigationMenu.Item key={item?.id}>
@@ -82,7 +85,7 @@ const DesktopNav: FC<Props> = ({ className, children }) => {
                                         'row-span-8',
                                     ])}
                                   >
-                                    {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
+                                    {/* eslint-disable-next-line jsx-a11y/alt-text */}
                                     <img
                                       className={cn([
                                         'object-cover object-center h-full w-full min-w-36 rounded',
@@ -112,7 +115,7 @@ const DesktopNav: FC<Props> = ({ className, children }) => {
                                         'row-span-8',
                                     ])}
                                   >
-                                    {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
+                                    {/* eslint-disable-next-line jsx-a11y/alt-text */}
                                     <img
                                       className={cn([
                                         'object-cover object-center h-full w-full min-w-36 rounded',

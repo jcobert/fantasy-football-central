@@ -14,9 +14,9 @@ import { FC, useState } from 'react'
 
 import { cn } from '@/utils/style'
 
+import AuthLink from '@/components/auth/auth-link'
 import Accordion from '@/components/common/accordion'
-import { UserGreeting } from '@/components/layout/header/user-menu'
-import LoginLink from '@/components/login-link'
+import UserGreeting from '@/components/layout/header/user-greeting'
 import Logo from '@/components/logo'
 
 import { isActive, navItems } from '@/configuration/nav'
@@ -121,7 +121,7 @@ const MobileNav: FC<Props> = ({ className, session }) => {
           })}
         </div>
 
-        <LoginLink authenticated={!!session?.user} className='mt-auto' />
+        <AuthLink className='mt-auto' onClick={() => setIsMenuOpen(false)} />
       </NavbarMenu>
     </Navbar>
   )

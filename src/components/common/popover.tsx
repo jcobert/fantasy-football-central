@@ -8,16 +8,17 @@ type Props = {
   trigger?: ReactNode
   triggerProps?: Radix.PopoverTriggerProps
   contentProps?: Radix.PopoverContentProps
-}
+} & Radix.PopoverProps
 
 const Popover: FC<Props> = ({
   children,
   trigger,
   triggerProps,
   contentProps,
+  ...rootProps
 }) => {
   return (
-    <Radix.Root>
+    <Radix.Root {...rootProps}>
       <Radix.Trigger {...triggerProps}>{trigger}</Radix.Trigger>
       <Radix.Content sideOffset={5} {...contentProps}>
         {children}

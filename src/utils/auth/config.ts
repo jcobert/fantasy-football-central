@@ -5,7 +5,6 @@ import { SessionToken } from '@/utils/auth/types'
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
-  // debug: true,
   session: { strategy: 'jwt' },
   providers: [
     {
@@ -20,7 +19,6 @@ export const authOptions: NextAuthOptions = {
           client_id: process.env.YAHOO_CLIENT_ID,
           redirect_uri: process.env.YAHOO_REDIRECT_URI,
           response_type: 'code',
-          // prompt: "login",
           scope: 'openid',
         },
       },
@@ -40,6 +38,10 @@ export const authOptions: NextAuthOptions = {
       },
     },
   ],
+  pages: {
+    signIn: '/auth/signin',
+    signOut: '/auth/signout',
+  },
   callbacks: {
     async jwt({
       token,
