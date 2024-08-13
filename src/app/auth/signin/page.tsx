@@ -14,7 +14,7 @@ const Page: FC = async () => {
   }
 
   return (
-    <PageLayout pageClassName='items-center'>
+    <PageLayout pageClassName='items-center justify-center'>
       <SignIn />
     </PageLayout>
   )

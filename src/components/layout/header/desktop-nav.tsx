@@ -81,7 +81,7 @@ const DesktopNav: FC<Props> = ({ className, children }) => {
                                         'row-span-8',
                                     ])}
                                   >
-                                    {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
+                                    {/* eslint-disable-next-line jsx-a11y/alt-text */}
                                     <img
                                       className={cn([
                                         'object-cover object-center h-full w-full min-w-36 rounded',
@@ -111,7 +111,7 @@ const DesktopNav: FC<Props> = ({ className, children }) => {
                                         'row-span-8',
                                     ])}
                                   >
-                                    {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
+                                    {/* eslint-disable-next-line jsx-a11y/alt-text */}
                                     <img
                                       className={cn([
                                         'object-cover object-center h-full w-full min-w-36 rounded',

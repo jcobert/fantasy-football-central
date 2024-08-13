@@ -50,7 +50,7 @@ const PageLayout: FC<PageLayoutProps> = ({
         >
           {heading ? pageHeading : null}
 
-          <div className={cn(['mt-6', className])}>{children}</div>
+          <div className={cn(['mt-6__ px-2', className])}>{children}</div>
         </div>
       </div>
     </main>

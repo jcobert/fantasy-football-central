@@ -8,7 +8,6 @@ export const UserGreeting: FC<{ user: Session['user'] }> = ({ user }) => {
     <div className='flex items-center justify-center mx-auto w-fit gap-2'>
       <div className='h-auto my-auto transition-all rounded-full w-9'>
         {user?.image ? (
-          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={user?.image || ''}
             alt='profile avatar'
