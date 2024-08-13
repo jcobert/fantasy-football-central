@@ -11,7 +11,7 @@ const Header: FC = async () => {
     <>
       <MobileNav session={session} />
 
-      <DesktopNav>
+      <DesktopNav session={session}>
         <div className='ml-auto flex items-center'>
           <UserMenu session={session} />
         </div>

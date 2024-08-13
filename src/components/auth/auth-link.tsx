@@ -25,7 +25,6 @@ const AuthLink: FC<Props> = ({ className, type = 'dynamic', onClick }) => {
 
   const { resolvedTheme } = useTheme()
 
-  // const Login = <YahooSignInButton className={className} />
   const Login = (
     <Link
       href={`/api/auth/signin?callbackUrl=${callbackUrl}`}
@@ -42,15 +41,6 @@ const AuthLink: FC<Props> = ({ className, type = 'dynamic', onClick }) => {
       />
     </Link>
   )
-  // const Login = (
-  //   <Link
-  //     href={`/api/auth/signin?callbackUrl=${callbackUrl}`}
-  //     className={cn('btn sm:w-fit', className)}
-  //     onClick={() => onClick?.()}
-  //   >
-  //     <span>Sign in</span>
-  //   </Link>
-  // )
 
   const Logout = <SignOut className='mt-auto' />
 
