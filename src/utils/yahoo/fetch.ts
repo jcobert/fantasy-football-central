@@ -3,7 +3,7 @@ import axios, { AxiosError } from 'axios'
 import { SessionToken } from '@/utils/auth/types'
 import { parser } from '@/utils/xml'
 
-export type FetchResponse<TData = unknown> = {
+export type FetchResponse<TData = any> = {
   data: TData | null
   status?: number
   success: boolean

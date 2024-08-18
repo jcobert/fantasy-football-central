@@ -6,11 +6,11 @@ import { FC } from 'react'
 import { forceArray } from '@/utils/array'
 import { cn } from '@/utils/style'
 
-import { useGetUser } from '@/components/features/dashboard/hooks/use-get-user'
+import { useGetUserLeagues } from '@/components/features/dashboard/hooks/use-get-user-leagues'
 
 const Dashboard: FC = () => {
-  const { response } = useGetUser({
-    enabled: true,
+  const { response } = useGetUserLeagues({
+    queryOptions: { enabled: true },
   })
 
   const data = response?.data

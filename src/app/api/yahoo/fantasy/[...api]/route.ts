@@ -9,22 +9,12 @@ export const dynamic = 'force-dynamic'
 export const GET = async (req: NextRequest) => {
   try {
     const accessToken = await getSessionToken({ req })
-    const params = req.nextUrl?.searchParams
-    const resource = params?.get('resource') || ''
-    const subresource = params?.get('subresource') || ''
-    const query = params?.get('query') || ''
 
-    const endpoint =
-      req.nextUrl.pathname?.split('/api/yahoo/fantasy/')?.[1] || ''
-
-    const url = `/${endpoint}${query}`
-
-    console.log(url)
+    const url = req.nextUrl.pathname?.split('/api/yahoo/fantasy')?.[1] || ''
 
     const response = await yahooFetch<UserLeaguesDto>({
       token: accessToken,
       url,
-      // url: `/users;use_login=1/games;game_codes=nfl/${resource}/${subresource}`,
     })
 
     const { status, message } = response
@@ -32,6 +22,9 @@ export const GET = async (req: NextRequest) => {
     return NextResponse.json(response, { status, statusText: message })
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('\n\nError at /api/users:\n\n', error)
+    console.error(
+      '\n\nError fetching from Yahoo Fantasy Sports API:\n\n',
+      error,
+    )
   }
 }

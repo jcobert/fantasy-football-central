@@ -7,7 +7,10 @@ import { authRedirect, getSessionToken } from '@/utils/auth/helpers'
 import { yahooFetch } from '@/utils/yahoo/fetch'
 
 import Dashboard from '@/components/features/dashboard/dashboard'
-import { userQueryKey } from '@/components/features/dashboard/hooks/use-get-user'
+import {
+  USER_LEAGUES_QUERY_URL,
+  usersQueryKey,
+} from '@/components/features/dashboard/hooks/use-get-user-leagues'
 import PageLayout from '@/components/layout/page-layout'
 
 import { createQueryClient } from '@/configuration/react-query'
@@ -25,13 +28,10 @@ const Page: FC = async () => {
   const queryClient = createQueryClient()
 
   await queryClient.prefetchQuery({
-    queryKey: userQueryKey.filtered({
-      resource: 'leagues',
-      subresource: 'teams',
-    }),
+    queryKey: usersQueryKey.leagues,
     queryFn: () =>
       yahooFetch({
-        url: '/users;use_login=1/games;game_codes=nfl/leagues/teams',
+        url: USER_LEAGUES_QUERY_URL,
         token: accessToken,
       }),
   })
