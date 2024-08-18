@@ -1,5 +1,6 @@
 import { UseQueryOptions, useQuery } from '@tanstack/react-query'
 
+import { FetchResponse } from '@/utils/yahoo/fetch'
 import { getUserLeagues } from '@/utils/yahoo/queries/get-user-leagues'
 import {
   LeagueEndpointResource,
@@ -20,19 +21,24 @@ export const userQueryKey = {
 }
 
 export const useGetUser = (
-  params?: Partial<UseQueryOptions<UserLeaguesDto>>,
+  params?: Partial<UseQueryOptions<FetchResponse<UserLeaguesDto>>>,
 ) => {
-  const { enabled = false, ...queryOptions } = params || {}
+  const {
+    enabled = false,
+    refetchOnMount = false,
+    ...queryOptions
+  } = params || {}
 
-  const query = useQuery({
+  const { data, ...query } = useQuery({
     queryKey: userQueryKey.filtered({
       resource: 'leagues',
       subresource: 'teams',
     }),
     queryFn: getUserLeagues,
     enabled,
+    refetchOnMount,
     ...queryOptions,
   })
 
-  return query
+  return { response: data, ...query }
 }

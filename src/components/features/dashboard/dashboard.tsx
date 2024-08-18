@@ -9,10 +9,11 @@ import { cn } from '@/utils/style'
 import { useGetUser } from '@/components/features/dashboard/hooks/use-get-user'
 
 const Dashboard: FC = () => {
-  const { data } = useGetUser({
+  const { response } = useGetUser({
     enabled: true,
-    refetchOnMount: false,
   })
+
+  const data = response?.data
 
   const games = sortBy(
     data?.users?.user?.games?.game?.filter((game) => game?.code === 'nfl'),
