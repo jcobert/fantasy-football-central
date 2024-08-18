@@ -20,8 +20,6 @@ export const GET = async (req: NextRequest) => {
       },
     )
 
-    console.log(accessToken)
-
     const data = await response?.data
 
     if (!data || response.status >= 400)
