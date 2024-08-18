@@ -498,6 +498,8 @@ export type ImageAsset = {
   url: string
 }
 
+export type UserEndpointResource = 'leagues' | 'teams'
+
 export type LeagueEndpointResource =
   | 'metadata'
   | 'roster'
