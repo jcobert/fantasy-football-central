@@ -5,12 +5,9 @@ import { FC, ReactNode } from 'react'
 import { getSessionToken } from '@/utils/auth/helpers'
 import { yahooFetch } from '@/utils/yahoo/fetch'
 
-import {
-  USER_LEAGUES_QUERY_URL,
-  usersQueryKey,
-} from '@/components/features/dashboard/hooks/use-get-user-leagues'
-
 import { createQueryClient } from '@/configuration/react-query'
+import { userLeaguesQueryKey } from '@/components/features/dashboard/hooks/use-get-user-leagues'
+import { userLeaguesQuery } from '@/utils/yahoo/queries/user-leagues'
 
 const Hydration: FC<{ children: ReactNode }> = async ({ children }) => {
   const accessToken = await getSessionToken({ cookies: cookies() })
@@ -19,10 +16,10 @@ const Hydration: FC<{ children: ReactNode }> = async ({ children }) => {
 
   await Promise.all([
     queryClient.prefetchQuery({
-      queryKey: usersQueryKey.leagues,
+      queryKey: userLeaguesQueryKey.all,
       queryFn: () =>
         yahooFetch({
-          url: USER_LEAGUES_QUERY_URL,
+          url: userLeaguesQuery(),
           token: accessToken,
         }),
     }),

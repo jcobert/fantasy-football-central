@@ -15,7 +15,7 @@ import { createQueryClient } from '@/configuration/react-query'
 import { buildPageTitle } from '@/configuration/seo'
 
 export const metadata: Metadata = {
-  title: buildPageTitle('Dashboard'),
+  title: buildPageTitle('League'),
 }
 
 const Page: FC = async () => {
@@ -26,16 +26,16 @@ const Page: FC = async () => {
   const queryClient = createQueryClient()
 
   await queryClient.prefetchQuery({
-    queryKey: userLeaguesQueryKey.all,
+    queryKey: userLeaguesQueryKey.filtered({ leagueResources: ['settings'] }),
     queryFn: () =>
       yahooFetch({
-        url: userLeaguesQuery(),
+        url: userLeaguesQuery({ leagueResources: ['settings'] }),
         token: accessToken,
       }),
   })
 
   return (
-    <PageLayout heading='Dashboard'>
+    <PageLayout heading='League'>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <Dashboard />
       </HydrationBoundary>

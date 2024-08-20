@@ -1,5 +1,6 @@
 import { UseQueryOptions } from '@tanstack/react-query'
 
+import { filteredQueryKey } from '@/utils/query'
 import { FetchResponse } from '@/utils/yahoo/fetch'
 import {
   UserLeaguesDto,
@@ -22,9 +23,9 @@ type Params = {
 } & QueryParams
 
 export const userLeaguesQueryKey = {
-  all: ['user-leagues'],
+  all: ['user-leagues'] as const,
   filtered: (params: QueryParams) =>
-    [...userLeaguesQueryKey.all, { ...params }] as const,
+    filteredQueryKey(params, userLeaguesQueryKey.all),
 }
 
 export const useGetUserLeagues = ({

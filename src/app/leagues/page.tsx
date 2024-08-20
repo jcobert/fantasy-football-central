@@ -15,7 +15,7 @@ import { createQueryClient } from '@/configuration/react-query'
 import { buildPageTitle } from '@/configuration/seo'
 
 export const metadata: Metadata = {
-  title: buildPageTitle('Dashboard'),
+  title: buildPageTitle('Leagues'),
 }
 
 const Page: FC = async () => {
@@ -35,7 +35,7 @@ const Page: FC = async () => {
   })
 
   return (
-    <PageLayout heading='Dashboard'>
+    <PageLayout heading='Leagues'>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <Dashboard />
       </HydrationBoundary>

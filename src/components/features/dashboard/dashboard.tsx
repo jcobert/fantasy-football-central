@@ -11,7 +11,6 @@ import LeagueCard from '@/components/features/dashboard/league-card'
 
 const Dashboard: FC = () => {
   const { response } = useGetUserLeagues({
-    leagueResources: ['settings'],
     queryOptions: { enabled: true },
   })
 
