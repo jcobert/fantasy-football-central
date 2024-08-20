@@ -7,37 +7,38 @@ import { authRedirect, getSessionToken } from '@/utils/auth/helpers'
 import { yahooFetch } from '@/utils/yahoo/fetch'
 import { userLeaguesQuery } from '@/utils/yahoo/queries/user-leagues'
 
-import Dashboard from '@/components/features/dashboard/dashboard'
 import { userLeaguesQueryKey } from '@/components/features/dashboard/hooks/use-get-user-leagues'
 import PageLayout from '@/components/layout/page-layout'
 
 import { createQueryClient } from '@/configuration/react-query'
 import { buildPageTitle } from '@/configuration/seo'
 
+/** @todo generate. */
 export const metadata: Metadata = {
   title: buildPageTitle('League'),
 }
 
-const Page: FC = async () => {
+const Page: FC = async (props) => {
   await authRedirect()
+  console.log(props)
 
   const accessToken = await getSessionToken({ cookies: cookies() })
 
   const queryClient = createQueryClient()
 
   await queryClient.prefetchQuery({
-    queryKey: userLeaguesQueryKey.filtered({ leagueResources: ['settings'] }),
+    queryKey: userLeaguesQueryKey.all,
     queryFn: () =>
       yahooFetch({
-        url: userLeaguesQuery({ leagueResources: ['settings'] }),
+        url: userLeaguesQuery(),
         token: accessToken,
       }),
   })
 
   return (
-    <PageLayout heading='League'>
+    <PageLayout>
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <Dashboard />
+        <div></div>
       </HydrationBoundary>
     </PageLayout>
   )

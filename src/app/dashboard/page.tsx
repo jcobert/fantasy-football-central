@@ -35,7 +35,7 @@ const Page: FC = async () => {
   })
 
   return (
-    <PageLayout heading='Dashboard'>
+    <PageLayout>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <Dashboard />
       </HydrationBoundary>
