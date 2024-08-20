@@ -1,4 +1,5 @@
 import {
+  Games,
   LeagueEndpointResource,
   TeamEndpointResource,
 } from '@/utils/yahoo/types/common'
@@ -6,6 +7,15 @@ import {
 export type UserLeaguesQueryParams = {
   leagueResources?: LeagueEndpointResource[]
   teamResources?: TeamEndpointResource[]
+}
+
+export type UserLeaguesDto = {
+  users: {
+    user: {
+      guid: string
+      games: Games
+    }
+  }
 }
 
 /**

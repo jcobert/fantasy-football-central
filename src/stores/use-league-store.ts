@@ -1,10 +1,10 @@
 import { PlayoffTeams } from '../utils/yahoo/team'
 import { League } from '../utils/yahoo/types/common'
-import { LeagueScoreboardDto } from '../utils/yahoo/types/dto/league/league-scoreboard-dto'
-import { League as HistoricalLeague } from '../utils/yahoo/types/dto/leagues/leagues-teams-dto'
+import { LeagueScoreboardDto } from '../utils/yahoo/types/dto/__unused__/league/league-scoreboard-dto'
+import { League as HistoricalLeague } from '../utils/yahoo/types/dto/__unused__/leagues/leagues-teams-dto'
 import { create } from 'zustand'
 
-import { LeagueStandingsDto } from '@/utils/yahoo/types/dto/league/league-standings-dto'
+import { LeagueStandingsDto } from '@/utils/yahoo/types/dto/__unused__/league/league-standings-dto'
 import { createSelectors } from '@/utils/zustand'
 
 export type LeagueStore = {

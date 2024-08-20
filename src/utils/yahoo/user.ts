@@ -1,4 +1,4 @@
-import { Game } from './types/dto/user/user-leagues-dto'
+import { Game } from './types/dto/__unused__/user/user-leagues-dto'
 import { sortBy } from 'lodash'
 
 export const compileUserTeams = (userGames: Game[] | null) => {

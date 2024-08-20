@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { getSessionToken } from '@/utils/auth/helpers'
 import { yahooFetch } from '@/utils/yahoo/fetch'
-import { UserLeaguesDto } from '@/utils/yahoo/types/dto/user/user-leagues-dto'
+import { UserLeaguesDto } from '@/utils/yahoo/queries/user-leagues'
 
 export const dynamic = 'force-dynamic'
 
@@ -19,12 +19,9 @@ export const GET = async (req: NextRequest) => {
 
     const url = `/${endpoint}${query}`
 
-    console.log(url)
-
     const response = await yahooFetch<UserLeaguesDto>({
       token: accessToken,
       url,
-      // url: `/users;use_login=1/games;game_codes=nfl/${resource}/${subresource}`,
     })
 
     const { status, message } = response

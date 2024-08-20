@@ -1,4 +1,4 @@
-import { User } from '../utils/yahoo/types/dto/user/user-leagues-dto'
+import { User } from '../utils/yahoo/types/dto/__unused__/user/user-leagues-dto'
 import { create } from 'zustand'
 
 import { createSelectors } from '@/utils/zustand'

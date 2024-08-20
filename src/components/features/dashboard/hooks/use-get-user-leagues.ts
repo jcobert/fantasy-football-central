@@ -1,12 +1,14 @@
 import { UseQueryOptions } from '@tanstack/react-query'
 
 import { FetchResponse } from '@/utils/yahoo/fetch'
-import { userLeaguesQuery } from '@/utils/yahoo/queries/user-leagues'
+import {
+  UserLeaguesDto,
+  userLeaguesQuery,
+} from '@/utils/yahoo/queries/user-leagues'
 import {
   LeagueEndpointResource,
   TeamEndpointResource,
 } from '@/utils/yahoo/types/common'
-import { UserLeaguesDto } from '@/utils/yahoo/types/dto/user/user-leagues-dto'
 
 import { useYahooQuery } from '@/hooks/use-yahoo-query'
 

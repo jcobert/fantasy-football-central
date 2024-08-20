@@ -7,6 +7,7 @@ import { forceArray } from '@/utils/array'
 import { cn } from '@/utils/style'
 
 import { useGetUserLeagues } from '@/components/features/dashboard/hooks/use-get-user-leagues'
+import LeagueCard from '@/components/features/dashboard/league-card'
 
 const Dashboard: FC = () => {
   const { response } = useGetUserLeagues({
@@ -29,7 +30,7 @@ const Dashboard: FC = () => {
     <div>
       <div className='flex flex-col gap-10'>
         {games?.map((game) => {
-          const leagues = forceArray(game?.leagues?.league)
+          const leagues = forceArray(game?.leagues?.league)?.filter(Boolean)
           return (
             <div
               key={game?.gameKey}
@@ -40,14 +41,7 @@ const Dashboard: FC = () => {
               <span>{game?.season}</span>
               <div className='flex flex-col gap-3'>
                 {leagues?.map((league) => (
-                  <div
-                    key={league?.leagueId}
-                    className={cn('border rounded p-2', [
-                      league?.isFinished && 'text-gray-400',
-                    ])}
-                  >
-                    <span className='font-medium'>{league?.name}</span>
-                  </div>
+                  <LeagueCard key={league?.leagueId} league={league} />
                 ))}
               </div>
             </div>

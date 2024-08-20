@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { getSessionToken } from '@/utils/auth/helpers'
 import { yahooFetch } from '@/utils/yahoo/fetch'
-import { UserLeaguesDto } from '@/utils/yahoo/types/dto/user/user-leagues-dto'
 
 export const dynamic = 'force-dynamic'
 
@@ -12,7 +11,7 @@ export const GET = async (req: NextRequest) => {
 
     const url = req.nextUrl.pathname?.split('/api/yahoo/fantasy')?.[1] || ''
 
-    const response = await yahooFetch<UserLeaguesDto>({
+    const response = await yahooFetch({
       token: accessToken,
       url,
     })
