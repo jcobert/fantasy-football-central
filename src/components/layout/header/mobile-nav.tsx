@@ -45,11 +45,7 @@ const MobileNav: FC<Props> = ({ className, session }) => {
     >
       <NavbarContent className='sm:hidden w-full grid grid-rows-1 grid-cols-12 items-center'>
         {/* Logo */}
-        <Link
-          href='/'
-          className='col-span-8'
-          onClick={() => setIsMenuOpen(false)}
-        >
+        <Link href='/' onClick={() => setIsMenuOpen(false)}>
           <Logo className='w-fit' />
         </Link>
         {/* Hamburger */}
