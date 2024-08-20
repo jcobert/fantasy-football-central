@@ -10,6 +10,7 @@ import { useGetUserLeagues } from '@/components/features/dashboard/hooks/use-get
 
 const Dashboard: FC = () => {
   const { response } = useGetUserLeagues({
+    leagueResources: ['settings'],
     queryOptions: { enabled: true },
   })
 
@@ -20,28 +21,32 @@ const Dashboard: FC = () => {
     (game) => game?.season,
   )?.reverse()
 
-  const activeSeason = games?.filter((game) => !game?.isGameOver)?.[0]
+  // const activeSeason = games?.filter((game) => !game?.isGameOver)?.[0]
 
-  const activeLeagues = forceArray(activeSeason?.leagues?.league)
+  // const activeLeagues = forceArray(activeSeason?.leagues?.league)
 
   return (
     <div>
-      <div className='flex flex-col gap-6'>
+      <div className='flex flex-col gap-10'>
         {games?.map((game) => {
           const leagues = forceArray(game?.leagues?.league)
           return (
             <div
               key={game?.gameKey}
-              className={cn([game?.isGameOver && 'text-gray-400'])}
+              className={cn('flex flex-col gap-2', [
+                game?.isGameOver && 'text-gray-400',
+              ])}
             >
               <span>{game?.season}</span>
               <div className='flex flex-col gap-3'>
                 {leagues?.map((league) => (
                   <div
                     key={league?.leagueId}
-                    className={cn([league?.isFinished && 'text-gray-400'])}
+                    className={cn('border rounded p-2', [
+                      league?.isFinished && 'text-gray-400',
+                    ])}
                   >
-                    <span>{league?.name}</span>
+                    <span className='font-medium'>{league?.name}</span>
                   </div>
                 ))}
               </div>

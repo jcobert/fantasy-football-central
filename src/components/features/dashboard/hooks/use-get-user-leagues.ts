@@ -1,40 +1,44 @@
 import { UseQueryOptions } from '@tanstack/react-query'
 
 import { FetchResponse } from '@/utils/yahoo/fetch'
+import { userLeaguesQuery } from '@/utils/yahoo/queries/user-leagues'
+import {
+  LeagueEndpointResource,
+  TeamEndpointResource,
+} from '@/utils/yahoo/types/common'
 import { UserLeaguesDto } from '@/utils/yahoo/types/dto/user/user-leagues-dto'
 
 import { useYahooQuery } from '@/hooks/use-yahoo-query'
 
-// type QueryParams = {
-//   resource?: UserEndpointResource
-//   subresource?: LeagueEndpointResource | TeamEndpointResource
-// }
+type QueryParams = {
+  leagueResources?: LeagueEndpointResource[]
+  teamResources?: TeamEndpointResource[]
+}
 
 type Params = {
   queryOptions: Partial<UseQueryOptions<FetchResponse<UserLeaguesDto>>>
+} & QueryParams
+
+export const userLeaguesQueryKey = {
+  all: ['user-leagues'],
+  filtered: (params: QueryParams) =>
+    [...userLeaguesQueryKey.all, { ...params }] as const,
 }
 
-const queryKeyRoot = ['users'] as const
+export const useGetUserLeagues = ({
+  leagueResources,
+  teamResources,
+  queryOptions,
+}: Params) => {
+  const url = userLeaguesQuery({ leagueResources, teamResources })
 
-export const usersQueryKey = {
-  all: queryKeyRoot,
-  leagues: [...queryKeyRoot, 'leagues'] as const,
-  // filtered: (params: QueryParams) =>
-  //   [...usersQueryKey.all, { ...params }] as const,
-}
-
-/**
- * Gets all user NFL leagues.
- * For each league includes: teams, settings
- */
-export const USER_LEAGUES_QUERY_URL =
-  '/users;use_login=1/games;game_codes=nfl/leagues;out=settings/teams'
-
-export const useGetUserLeagues = ({ queryOptions }: Params) => {
   return useYahooQuery({
-    url: USER_LEAGUES_QUERY_URL,
+    url,
     queryOptions: {
-      queryKey: usersQueryKey.leagues,
+      queryKey: userLeaguesQueryKey.filtered({
+        leagueResources,
+        teamResources,
+      }),
       ...queryOptions,
     },
   })

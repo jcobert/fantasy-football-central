@@ -5,12 +5,10 @@ import { FC } from 'react'
 
 import { authRedirect, getSessionToken } from '@/utils/auth/helpers'
 import { yahooFetch } from '@/utils/yahoo/fetch'
+import { userLeaguesQuery } from '@/utils/yahoo/queries/user-leagues'
 
 import Dashboard from '@/components/features/dashboard/dashboard'
-import {
-  USER_LEAGUES_QUERY_URL,
-  usersQueryKey,
-} from '@/components/features/dashboard/hooks/use-get-user-leagues'
+import { userLeaguesQueryKey } from '@/components/features/dashboard/hooks/use-get-user-leagues'
 import PageLayout from '@/components/layout/page-layout'
 
 import { createQueryClient } from '@/configuration/react-query'
@@ -28,10 +26,10 @@ const Page: FC = async () => {
   const queryClient = createQueryClient()
 
   await queryClient.prefetchQuery({
-    queryKey: usersQueryKey.leagues,
+    queryKey: userLeaguesQueryKey.filtered({ leagueResources: ['settings'] }),
     queryFn: () =>
       yahooFetch({
-        url: USER_LEAGUES_QUERY_URL,
+        url: userLeaguesQuery({ leagueResources: ['settings'] }),
         token: accessToken,
       }),
   })
