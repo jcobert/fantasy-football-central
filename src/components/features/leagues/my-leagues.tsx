@@ -3,10 +3,10 @@
 import { partition, sortBy } from 'lodash'
 import { FC } from 'react'
 
-import { useGetUserLeagues } from '@/components/features/dashboard/hooks/use-get-user-leagues'
-import LeagueGroup from '@/components/features/dashboard/league-group'
+import { useGetUserLeagues } from '@/components/features/leagues/hooks/use-get-user-leagues'
+import LeagueGroup from '@/components/features/leagues/league-group'
 
-const Dashboard: FC = () => {
+const MyLeagues: FC = () => {
   const { response } = useGetUserLeagues({
     queryOptions: { enabled: true },
   })
@@ -53,4 +53,4 @@ const Dashboard: FC = () => {
   )
 }
 
-export default Dashboard
+export default MyLeagues

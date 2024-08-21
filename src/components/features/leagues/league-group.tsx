@@ -4,7 +4,7 @@ import { forceArray } from '@/utils/array'
 import { cn } from '@/utils/style'
 import { Game } from '@/utils/yahoo/types/common'
 
-import LeagueCard from '@/components/features/dashboard/league-card'
+import LeagueCard from '@/components/features/leagues/league-card'
 
 type Props = {
   game: Game

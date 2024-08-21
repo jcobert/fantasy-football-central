@@ -7,7 +7,7 @@ import { authRedirect, getSessionToken } from '@/utils/auth/helpers'
 import { yahooFetch } from '@/utils/yahoo/fetch'
 import { userLeaguesQuery } from '@/utils/yahoo/queries/user-leagues'
 
-import { userLeaguesQueryKey } from '@/components/features/dashboard/hooks/use-get-user-leagues'
+import { userLeaguesQueryKey } from '@/components/features/leagues/hooks/use-get-user-leagues'
 import PageLayout from '@/components/layout/page-layout'
 
 import { createQueryClient } from '@/configuration/react-query'

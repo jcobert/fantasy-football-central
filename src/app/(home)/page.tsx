@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 }
 
 const Page: FC = async () => {
-  await authRedirect({ authenticated: true, url: '/dashboard' })
+  await authRedirect({ authenticated: true, url: '/leagues' })
 
   return (
     <PageLayout>
