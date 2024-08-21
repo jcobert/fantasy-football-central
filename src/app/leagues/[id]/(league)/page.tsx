@@ -7,7 +7,7 @@ import { authRedirect, getSessionToken } from '@/utils/auth/helpers'
 import { yahooFetch } from '@/utils/yahoo/fetch'
 import { userLeaguesQuery } from '@/utils/yahoo/queries/user-leagues'
 
-import { userLeaguesQueryKey } from '@/components/features/leagues/hooks/use-get-user-leagues'
+import { userLeaguesQueryKey } from '@/components/features/leagues/store/hooks/use-get-user-leagues'
 import PageLayout from '@/components/layout/page-layout'
 
 import { createQueryClient } from '@/configuration/react-query'
@@ -26,21 +26,22 @@ const Page: FC = async (props) => {
 
   const queryClient = createQueryClient()
 
-  await queryClient.prefetchQuery({
-    queryKey: userLeaguesQueryKey.all,
-    queryFn: () =>
-      yahooFetch({
-        url: userLeaguesQuery(),
-        token: accessToken,
-      }),
-  })
+  /** @todo prefetch league query. */
+  // await queryClient.prefetchQuery({
+  //   queryKey: userLeaguesQueryKey.all,
+  //   queryFn: () =>
+  //     yahooFetch({
+  //       url: userLeaguesQuery(),
+  //       token: accessToken,
+  //     }),
+  // })
 
   return (
-    <PageLayout>
+    <section>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <div></div>
       </HydrationBoundary>
-    </PageLayout>
+    </section>
   )
 }
 
