@@ -5,10 +5,10 @@ import { FC } from 'react'
 
 import { authRedirect, getSessionToken } from '@/utils/auth/helpers'
 import { yahooFetch } from '@/utils/yahoo/fetch'
-import { userLeaguesQuery } from '@/utils/yahoo/queries/user-leagues'
+import { leagueQuery } from '@/utils/yahoo/queries/league'
 
-import { userLeaguesQueryKey } from '@/components/features/leagues/store/hooks/use-get-user-leagues'
-import PageLayout from '@/components/layout/page-layout'
+import LeagueHome from '@/components/features/leagues/league-home'
+import { leagueQueryKey } from '@/components/features/leagues/store/hooks/use-get-league'
 
 import { createQueryClient } from '@/configuration/react-query'
 import { buildPageTitle } from '@/configuration/seo'
@@ -18,28 +18,29 @@ export const metadata: Metadata = {
   title: buildPageTitle('League'),
 }
 
-const Page: FC = async (props) => {
+const Page: FC<{ params: { id: string } }> = async ({ params }) => {
   await authRedirect()
-  console.log(props)
+
+  const leagueKey = params?.id
 
   const accessToken = await getSessionToken({ cookies: cookies() })
 
   const queryClient = createQueryClient()
 
   /** @todo prefetch league query. */
-  // await queryClient.prefetchQuery({
-  //   queryKey: userLeaguesQueryKey.all,
-  //   queryFn: () =>
-  //     yahooFetch({
-  //       url: userLeaguesQuery(),
-  //       token: accessToken,
-  //     }),
-  // })
+  await queryClient.prefetchQuery({
+    queryKey: leagueQueryKey.filtered({ leagueKey }),
+    queryFn: () =>
+      yahooFetch({
+        url: leagueQuery({ leagueKey }),
+        token: accessToken,
+      }),
+  })
 
   return (
     <section>
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <div></div>
+        <LeagueHome leagueKey={leagueKey} />
       </HydrationBoundary>
     </section>
   )

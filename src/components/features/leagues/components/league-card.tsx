@@ -15,7 +15,7 @@ const LeagueCard: FC<Props> = ({ league }) => {
 
   return (
     <Link
-      href={`/leagues/${league?.leagueId}`}
+      href={`/leagues/${league?.leagueKey}`}
       className={cn('border rounded p-2 transition hover:bg-white', [
         // !isActive && 'text-gray-400',
         // isActive && 'hover:bg-white',
@@ -32,7 +32,7 @@ const LeagueCard: FC<Props> = ({ league }) => {
           />
         ) : (
           <div className='rounded-full border bg-gray-50 flex-none size-16 flex items-center justify-center'>
-            <IoAmericanFootball className='size-12 text-gray-600' />
+            <IoAmericanFootball className='size-10 text-gray-600' />
           </div>
         )}
 

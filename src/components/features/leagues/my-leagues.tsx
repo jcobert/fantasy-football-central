@@ -3,8 +3,8 @@
 import { partition, sortBy } from 'lodash'
 import { FC } from 'react'
 
+import LeagueGroup from '@/components/features/leagues/components/league-group'
 import { useGetUserLeagues } from '@/components/features/leagues/store/hooks/use-get-user-leagues'
-import LeagueGroup from '@/components/features/leagues/league-group'
 
 const MyLeagues: FC = () => {
   const { response } = useGetUserLeagues({
