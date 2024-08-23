@@ -11,9 +11,9 @@ export default async function middleware(req: NextRequest) {
     secret: process.env.NEXTAUTH_SECRET,
   })
 
-  // If user authenticated, redirect home page to dashboard.
+  // If user authenticated, redirect home to protected landing page.
   if (path === '/') {
-    url.pathname = '/dashboard'
+    url.pathname = '/leagues'
     if (session) return NextResponse.redirect(url)
     return NextResponse.next()
   } else if (!session) return NextResponse.redirect('/')

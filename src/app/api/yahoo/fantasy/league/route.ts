@@ -1,14 +1,14 @@
 import axios from 'axios'
 import { NextRequest, NextResponse } from 'next/server'
 
-import { getAccessToken } from '@/utils/auth/helpers'
+import { getSessionToken } from '@/utils/auth/helpers'
 import { parser } from '@/utils/xml'
 
 export const dynamic = 'force-dynamic'
 
 export const GET = async (req: NextRequest) => {
   try {
-    const accessToken = await getAccessToken(req)
+    const accessToken = await getSessionToken({ req })
     const params = req.nextUrl?.searchParams
     const leagueKey = params?.get('leagueKey') || ''
     const resource = params?.get('resource') || ''

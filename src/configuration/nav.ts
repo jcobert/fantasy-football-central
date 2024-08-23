@@ -1,8 +1,8 @@
-import { HTMLProps } from 'react'
+import { HTMLProps, ReactNode } from 'react'
 
 export type NavLink = {
   id: string
-  name: string
+  name: ReactNode
   url: string
   description?: string
   hidden?: boolean
@@ -23,6 +23,6 @@ export const getRowSpan = (menu: NavMenu) => {
 }
 
 export const navItems: NavItem[] = [
-  { id: 'league', name: 'League', url: '/league' },
-  { id: 'matchups', name: 'Matchups', url: '/matchups' },
+  // { id: 'league', name: 'League', url: '/league' },
+  // { id: 'matchups', name: 'Matchups', url: '/matchups' },
 ]

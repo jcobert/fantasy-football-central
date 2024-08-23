@@ -1,6 +1,33 @@
 // __________________________________________________________________
 // __________________________________________________________________
 // **********************
+// *        GAME        *
+// **********************
+
+export type Game = {
+  gameKey: number
+  gameId: number
+  name: string
+  code: string
+  type: string
+  url: string
+  season: number
+  isRegistrationOver: boolean
+  isGameOver: boolean
+  isOffseason: boolean
+
+  // Potential resources
+  leagues?: Leagues
+  teams?: Teams
+}
+
+export type Games = {
+  game: Game[]
+}
+
+// __________________________________________________________________
+// __________________________________________________________________
+// **********************
 // *       LEAGUE       *
 // **********************
 
@@ -41,6 +68,10 @@ export type League = {
   settings?: Settings
   draftResults?: DraftResults
   players?: Players
+}
+
+export type Leagues = {
+  league: League | League[]
 }
 
 /** League standings resource. */
@@ -497,6 +528,8 @@ export type ImageAsset = {
   size: Size
   url: string
 }
+
+export type UserEndpointResource = 'leagues' | 'teams'
 
 export type LeagueEndpointResource =
   | 'metadata'

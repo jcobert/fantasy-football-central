@@ -1,6 +1,6 @@
 import { CallbacksOptions, type NextAuthOptions } from 'next-auth'
 
-import { isAccessTokenExpired, refreshAccessToken } from '@/utils/auth/helpers'
+import { isAccessTokenExpired, refreshToken } from '@/utils/auth/helpers'
 import { SessionToken } from '@/utils/auth/types'
 
 export const authOptions: NextAuthOptions = {
@@ -64,7 +64,7 @@ export const authOptions: NextAuthOptions = {
       }
       // Token expired. Refresh token.
       else {
-        return await refreshAccessToken(token)
+        return await refreshToken(token)
       }
     },
     async session({ session }) {
