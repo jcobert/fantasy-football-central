@@ -2,6 +2,8 @@
 
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { FC } from 'react'
+import { FaThList } from 'react-icons/fa'
+import { IoAmericanFootball, IoTrophy } from 'react-icons/io5'
 
 import { cn } from '@/utils/style'
 
@@ -18,14 +20,41 @@ const LeagueNavbar: FC<Props> = ({ leagueId }) => {
   const baseUrl = `/leagues/${leagueId}`
 
   const navItems: NavItem[] = [
-    { id: 'league', name: 'League', url: baseUrl },
-    { id: 'team', name: 'My Team', url: `${baseUrl}/team` },
-    { id: 'draft', name: 'Draft', url: `${baseUrl}/draft` },
+    {
+      id: 'league',
+      name: (
+        <div className='flex flex-col items-center gap-2'>
+          <IoTrophy className='size-6' />
+          <span>League</span>
+        </div>
+      ),
+      url: baseUrl,
+    },
+    {
+      id: 'team',
+      name: (
+        <div className='flex flex-col items-center gap-2'>
+          <IoAmericanFootball className='size-6' />
+          <span>My Team</span>
+        </div>
+      ),
+      url: `${baseUrl}/team`,
+    },
+    {
+      id: 'draft',
+      name: (
+        <div className='flex flex-col items-center gap-2'>
+          <FaThList className='size-6' />
+          <span>Draft</span>
+        </div>
+      ),
+      url: `${baseUrl}/draft`,
+    },
   ]
 
   return (
-    <NavigationMenu.Root className='z-[1]__ flex-1'>
-      <NavigationMenu.List className='flex gap-1__ list-none bg-gray-50'>
+    <NavigationMenu.Root className='flex-1'>
+      <NavigationMenu.List className='flex gap-1__ list-none bg-gray-50 divide-x'>
         {navItems?.map((item) => {
           const hasMenu = !!item?.menu?.links?.length
           return (
@@ -33,7 +62,7 @@ const LeagueNavbar: FC<Props> = ({ leagueId }) => {
               {!hasMenu ? (
                 <NavLink
                   className={cn(
-                    'transition hover:bg-brand/10 block select-none px-3 py-6 font-medium text-center leading-none no-underline data-[active]:text-brand border-r',
+                    'transition hover:bg-brand/10 hover:text-dark-gray/90 text-dark-gray block select-none px-3 py-3 font-medium text-center leading-none no-underline data-[active]:text-brand',
                   )}
                   href={item?.url}
                 >
