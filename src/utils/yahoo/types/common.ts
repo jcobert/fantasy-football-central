@@ -130,7 +130,7 @@ export type Settings = {
   rosterPositions: RosterSettings
   statCategories: StatCategories
   statModifiers: StatModifiers
-  divisions: Divisions
+  divisions?: Divisions
   usesMedianScore: string
   leaguePremiumFeatures: string
   pickemEnabled: string
@@ -296,6 +296,7 @@ export type Team = {
   hasDraftGrade: boolean
   auctionBudgetTotal: number
   auctionBudgetSpent: number
+  divisionRank?: number
   managers: Managers
   roster?: Roster
   transactions?: Transactions

@@ -11,7 +11,7 @@ import {
 import { useYahooQuery } from '@/hooks/use-yahoo-query'
 
 type Params = {
-  queryOptions: Partial<UseQueryOptions<FetchResponse<LeagueDto>>>
+  queryOptions?: Partial<UseQueryOptions<FetchResponse<LeagueDto>>>
 } & LeagueQueryParams
 
 export const leagueQueryKey = {

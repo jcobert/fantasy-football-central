@@ -22,6 +22,10 @@ export const getRowSpan = (menu: NavMenu) => {
   return `row-span-${menu?.links?.length ?? 3}`
 }
 
+export const homeUrl = (loggedIn: boolean) => {
+  return loggedIn ? '/leagues' : '/'
+}
+
 export const navItems: NavItem[] = [
   // { id: 'league', name: 'League', url: '/league' },
   // { id: 'matchups', name: 'Matchups', url: '/matchups' },

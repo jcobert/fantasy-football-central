@@ -27,12 +27,17 @@ const Page: FC<{ params: { id: string } }> = async ({ params }) => {
 
   const queryClient = createQueryClient()
 
-  /** @todo prefetch league query. */
   await queryClient.prefetchQuery({
-    queryKey: leagueQueryKey.filtered({ leagueKey }),
+    queryKey: leagueQueryKey.filtered({
+      leagueKey,
+      leagueResources: ['settings', 'teams', 'standings'],
+    }),
     queryFn: () =>
       yahooFetch({
-        url: leagueQuery({ leagueKey }),
+        url: leagueQuery({
+          leagueKey,
+          leagueResources: ['settings', 'teams', 'standings'],
+        }),
         token: accessToken,
       }),
   })

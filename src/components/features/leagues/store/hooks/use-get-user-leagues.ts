@@ -19,7 +19,7 @@ type QueryParams = {
 }
 
 type Params = {
-  queryOptions: Partial<UseQueryOptions<FetchResponse<UserLeaguesDto>>>
+  queryOptions?: Partial<UseQueryOptions<FetchResponse<UserLeaguesDto>>>
 } & QueryParams
 
 export const userLeaguesQueryKey = {

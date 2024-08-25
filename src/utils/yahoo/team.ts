@@ -10,6 +10,7 @@ import {
   RosterPosition,
   RosterPositionSettings,
   Team,
+  Teams,
 } from './types/common'
 import { countBy, groupBy, intersection, omit, sortBy, uniqBy } from 'lodash'
 
@@ -23,16 +24,17 @@ export type TeamsByDivision = {
 }
 
 export const rankTeamsByDivision = (
-  divisions: Division[],
-  teams: Team[],
+  divisions?: Division[],
+  teams?: Teams['team'],
 ): TeamsByDivision[] => {
   const divisionTeams =
-    divisions?.map((division) => {
+    (divisions || [])?.map((division) => {
       return {
         division: division,
         teams:
-          teams?.filter((team) => team?.divisionId === division?.divisionId) ||
-          [],
+          (teams || [])?.filter(
+            (team) => team?.divisionId === division?.divisionId,
+          ) || [],
       }
     }) || []
 

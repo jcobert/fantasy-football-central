@@ -11,9 +11,9 @@ export type LeagueDto = {
 }
 
 /**
- * Gets all of the user's football leagues. Accepts arrays of league and team resources.
+ * Gets a single league. Accepts an array of league resources.
  *
- * `"/users;use_login=1/games;game_codes=nfl/leagues;out={leagueResources}/teams;out={teamResources}"`
+ * `"/league/${leagueKey};out=${params?.leagueResources?.join(',')}"`
  */
 export const leagueQuery = (params?: LeagueQueryParams) => {
   const { leagueKey } = params || {}
