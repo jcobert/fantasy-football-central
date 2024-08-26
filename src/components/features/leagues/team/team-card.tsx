@@ -34,7 +34,7 @@ const TeamCard: FC<Props> = ({
   pastTeam = false,
 }) => {
   const leagueKey = getLeagueKeyFromTeamKey(team?.teamKey)
-  const teamUrl = `/leagues/${leagueKey}/team/${team?.teamId}`
+  const teamUrl = `/leagues/${leagueKey}/team/${team?.teamKey}`
 
   const { response } = useGetLeague({
     leagueKey,

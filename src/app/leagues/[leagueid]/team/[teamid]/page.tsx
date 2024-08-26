@@ -4,39 +4,40 @@ import { cookies } from 'next/headers'
 import { FC } from 'react'
 
 import { authRedirect, getSessionToken } from '@/utils/auth/helpers'
+import { PageParams } from '@/utils/types'
 import { yahooFetch } from '@/utils/yahoo/fetch'
-import { leagueQuery } from '@/utils/yahoo/queries/league'
+import { teamQuery } from '@/utils/yahoo/queries/team'
 
-import LeagueHome from '@/components/features/leagues/league-home'
-import { leagueQueryKey } from '@/components/features/leagues/store/hooks/use-get-league'
+import { teamQueryKey } from '@/components/features/leagues/team/store/hooks/use-get-team'
+import TeamPage from '@/components/features/leagues/team/team-page'
 
 import { createQueryClient } from '@/configuration/react-query'
 import { buildPageTitle } from '@/configuration/seo'
 
 /** @todo generate. */
 export const metadata: Metadata = {
-  title: buildPageTitle('League'),
+  title: buildPageTitle('Team'),
 }
 
-const Page: FC<{ params: { id: string } }> = async ({ params }) => {
+const Page: FC<PageParams<{ teamid: string }>> = async ({ params }) => {
   await authRedirect()
 
-  const leagueKey = params?.id
+  const teamKey = params?.teamid
 
   const accessToken = await getSessionToken({ cookies: cookies() })
 
   const queryClient = createQueryClient()
 
   await queryClient.prefetchQuery({
-    queryKey: leagueQueryKey.filtered({
-      leagueKey,
-      leagueResources: ['settings', 'teams', 'standings'],
+    queryKey: teamQueryKey.filtered({
+      teamKey,
+      teamResources: ['roster', 'stats', 'matchups'],
     }),
     queryFn: () =>
       yahooFetch({
-        url: leagueQuery({
-          leagueKey,
-          leagueResources: ['settings', 'teams', 'standings'],
+        url: teamQuery({
+          teamKey,
+          teamResources: ['roster', 'stats', 'matchups'],
         }),
         token: accessToken,
       }),
@@ -45,7 +46,7 @@ const Page: FC<{ params: { id: string } }> = async ({ params }) => {
   return (
     <section>
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <LeagueHome leagueKey={leagueKey} />
+        <TeamPage teamKey={teamKey} />
       </HydrationBoundary>
     </section>
   )

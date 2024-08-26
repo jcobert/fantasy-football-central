@@ -13,7 +13,7 @@ export type LeagueDto = {
 /**
  * Gets a single league. Accepts an array of league resources.
  *
- * `"/league/${leagueKey};out=${params?.leagueResources?.join(',')}"`
+ * `"/league/${leagueKey};out=${leagueResources}"`
  */
 export const leagueQuery = (params?: LeagueQueryParams) => {
   const { leagueKey } = params || {}
