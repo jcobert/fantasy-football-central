@@ -1,7 +1,5 @@
 import { ReactNode } from 'react'
 
-import { PageParams } from '@/utils/types'
-
 // import Back from '@/components/common/back'
 import LeagueNavbar from '@/components/features/leagues/navigation/league-navbar'
 import PageLayout from '@/components/layout/page-layout'
@@ -11,7 +9,8 @@ const LeaguesLayout = ({
   params,
 }: {
   children: ReactNode
-} & PageParams<{ leagueid: string }>) => {
+  params: { leagueid: string }
+}) => {
   return (
     <PageLayout
       defaultLayout={false}
