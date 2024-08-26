@@ -3,7 +3,8 @@
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { FC } from 'react'
 import { FaThList } from 'react-icons/fa'
-import { IoAmericanFootball, IoTrophy } from 'react-icons/io5'
+import { GiAmericanFootballHelmet } from 'react-icons/gi'
+import { IoTrophy } from 'react-icons/io5'
 
 import { cn } from '@/utils/style'
 
@@ -34,7 +35,7 @@ const LeagueNavbar: FC<Props> = ({ leagueId }) => {
       id: 'team',
       name: (
         <div className='flex flex-col items-center gap-2'>
-          <IoAmericanFootball className='size-6' />
+          <GiAmericanFootballHelmet className='size-6' />
           <span>My Team</span>
         </div>
       ),
@@ -53,8 +54,8 @@ const LeagueNavbar: FC<Props> = ({ leagueId }) => {
   ]
 
   return (
-    <NavigationMenu.Root className='flex-1'>
-      <NavigationMenu.List className='flex gap-1__ list-none bg-gray-50 divide-x'>
+    <NavigationMenu.Root className='flex-1 bg-transparent'>
+      <NavigationMenu.List className='flex gap-1__ list-none bg-transparent divide-x'>
         {navItems?.map((item) => {
           const hasMenu = !!item?.menu?.links?.length
           return (

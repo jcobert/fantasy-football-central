@@ -4,3 +4,7 @@ export const fullName = (
 ) => {
   return `${first}${last ? ` ${last}` : ''}`?.trim()
 }
+
+export const parseKeyFromUrl = (pathname: string, start: string) => {
+  return pathname?.split(start)?.[1]?.split('/')?.[0]
+}

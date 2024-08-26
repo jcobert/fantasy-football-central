@@ -2,14 +2,13 @@
 
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { Session } from 'next-auth'
-import Link from 'next/link'
 import React, { FC, ReactNode } from 'react'
 import { FaAngleUp } from 'react-icons/fa6'
 
 import { cn } from '@/utils/style'
 
+import LogoLink from '@/components/layout/header/logo-link'
 import NavLink from '@/components/layout/header/nav-link'
-import Logo from '@/components/logo'
 
 import { navItems } from '@/configuration/nav'
 
@@ -26,16 +25,14 @@ const DesktopNav: FC<Props> = ({ className, children, session }) => {
     <div
       id='desktop-nav'
       className={cn([
-        'hidden z-50 sm:block w-full border-b py-2 sticky top-0 background-saturate-150 backdrop-blur-lg',
+        'hidden z-50 sm:block w-full border-b py-2 sticky top-0 background-saturate-150 bg-background/70 backdrop-blur-lg',
         className,
       ])}
     >
       <div className='sm:flex items-center gap-6 layout px-2 sm:px-0'>
         {/* Logo */}
+        <LogoLink session={session} />
 
-        <Link href='/' className='w-fit'>
-          <Logo />
-        </Link>
         <NavigationMenu.Root className='z-[1] flex justify-center'>
           <NavigationMenu.List className='center m-0 flex gap-1 list-none rounded-[6px] p-1'>
             {items?.map((item) => {

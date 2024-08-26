@@ -37,14 +37,20 @@ export default {
         // Viewport height minus navbar and footer heights
         'page-mobile': 'var(--page-height-mobile)',
         page: 'var(--page-height)',
+        'main-mobile': 'var(--main-height-mobile)',
+        main: 'var(--main-height)',
       },
       minHeight: ({ theme }) => ({
         'page-mobile': theme('height.page-mobile'),
         page: theme('height.page'),
+        'main-mobile': 'var(--main-height-mobile)',
+        main: 'var(--main-height)',
       }),
       maxHeight: ({ theme }) => ({
         'page-mobile': theme('height.page-mobile'),
         page: theme('height.page'),
+        'main-mobile': 'var(--main-height-mobile)',
+        main: 'var(--main-height)',
       }),
       maxWidth: {
         layout: '68.75rem',

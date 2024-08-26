@@ -16,8 +16,8 @@ import { cn } from '@/utils/style'
 
 import AuthLink from '@/components/auth/auth-link'
 import Accordion from '@/components/common/accordion'
+import LogoLink from '@/components/layout/header/logo-link'
 import UserGreeting from '@/components/layout/header/user-greeting'
-import Logo from '@/components/logo'
 
 import { isActive, navItems } from '@/configuration/nav'
 
@@ -45,9 +45,7 @@ const MobileNav: FC<Props> = ({ className, session }) => {
     >
       <NavbarContent className='sm:hidden w-full grid grid-rows-1 grid-cols-12 items-center'>
         {/* Logo */}
-        <Link href='/' onClick={() => setIsMenuOpen(false)}>
-          <Logo className='w-fit' />
-        </Link>
+        <LogoLink session={session} />
         {/* Hamburger */}
         <NavbarMenuToggle className='col-start-12' />
       </NavbarContent>
