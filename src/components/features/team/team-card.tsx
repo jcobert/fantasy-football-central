@@ -13,8 +13,8 @@ import { getLeagueKeyFromTeamKey } from '@/utils/yahoo/league'
 import { getPlayoffTeams, rankTeamsByDivision } from '@/utils/yahoo/team'
 import { OutcomeTotals, Team } from '@/utils/yahoo/types/common'
 
-import { useGetLeague } from '@/components/features/leagues/store/hooks/use-get-league'
-import ChampionDecoration from '@/components/features/leagues/team/champion-decoration'
+import { useGetLeague } from '@/components/features/league/store/hooks/use-get-league'
+import ChampionDecoration from '@/components/features/team/champion-decoration'
 
 type Props = {
   team?: Team

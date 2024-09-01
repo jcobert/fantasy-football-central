@@ -4,7 +4,7 @@ import { cn } from '@/utils/style'
 import { getLeagueKeyFromTeamKey } from '@/utils/yahoo/league'
 import { OutcomeTotals, Team } from '@/utils/yahoo/types/common'
 
-import { useGetLeague } from '@/components/features/leagues/store/hooks/use-get-league'
+import { useGetLeague } from '@/components/features/league/store/hooks/use-get-league'
 
 type Props = {
   teamId?: Team['teamId']

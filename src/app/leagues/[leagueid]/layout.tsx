@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 
 // import Back from '@/components/common/back'
-import LeagueNavbar from '@/components/features/leagues/navigation/league-navbar'
+import LeagueNavbar from '@/components/features/league/league-navbar'
 import PageLayout from '@/components/layout/page-layout'
 
 const LeaguesLayout = ({

@@ -8,8 +8,8 @@ import { PageParams } from '@/utils/types'
 import { yahooFetch } from '@/utils/yahoo/fetch'
 import { TeamDto, teamQuery } from '@/utils/yahoo/queries/team'
 
-import { teamQueryKey } from '@/components/features/leagues/team/store/hooks/use-get-team'
-import TeamPage from '@/components/features/leagues/team/team-page'
+import { teamQueryKey } from '@/components/features/team/store/hooks/use-get-team'
+import TeamPage from '@/components/features/team/team-page'
 
 import { createQueryClient } from '@/configuration/react-query'
 import { generatePageMeta } from '@/configuration/seo'
@@ -60,7 +60,7 @@ const Page: FC<Props> = async ({ params }) => {
   return (
     <section>
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <TeamPage teamKey={teamKey} />
+        <TeamPage teamKey={teamKey} leagueKey={leagueid} />
       </HydrationBoundary>
     </section>
   )

@@ -5,8 +5,8 @@ import { FC } from 'react'
 import { rankTeamsByDivision } from '@/utils/yahoo/team'
 import { League } from '@/utils/yahoo/types/common'
 
-import { useGetLeague } from '@/components/features/leagues/store/hooks/use-get-league'
-import TeamCard from '@/components/features/leagues/team/team-card'
+import { useGetLeague } from '@/components/features/league/store/hooks/use-get-league'
+import TeamCard from '@/components/features/team/team-card'
 
 type Props = {
   leagueKey: League['leagueKey']

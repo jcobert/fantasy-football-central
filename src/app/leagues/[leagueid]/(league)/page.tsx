@@ -7,8 +7,8 @@ import { PageParams } from '@/utils/types'
 import { yahooFetch } from '@/utils/yahoo/fetch'
 import { LeagueDto, leagueQuery } from '@/utils/yahoo/queries/league'
 
-import LeagueHome from '@/components/features/leagues/league-home'
-import { leagueQueryKey } from '@/components/features/leagues/store/hooks/use-get-league'
+import LeagueHome from '@/components/features/league/league-home'
+import { leagueQueryKey } from '@/components/features/league/store/hooks/use-get-league'
 
 import { createQueryClient } from '@/configuration/react-query'
 import { generatePageMeta } from '@/configuration/seo'

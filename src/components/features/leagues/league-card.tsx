@@ -8,7 +8,7 @@ import { IoTrophy } from 'react-icons/io5'
 import { cn } from '@/utils/style'
 import { League } from '@/utils/yahoo/types/common'
 
-import { setActiveLeague } from '@/stores/use-league-store'
+import { setLeagueKey } from '@/components/features/league/store/league-store'
 
 type Props = {
   league: League
@@ -28,7 +28,7 @@ const LeagueCard: FC<Props> = ({ league }) => {
         ],
       )}
       onClick={() => {
-        setActiveLeague(league?.leagueKey)
+        setLeagueKey(league?.leagueKey)
       }}
     >
       <div className='flex gap-4 items-center'>

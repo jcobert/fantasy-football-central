@@ -1,19 +1,24 @@
 'use client'
 
 import Image from 'next/image'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { IoTrophy } from 'react-icons/io5'
 
 import { League } from '@/utils/yahoo/types/common'
 
-import Standings from '@/components/features/leagues/league/standings'
-import { useGetLeague } from '@/components/features/leagues/store/hooks/use-get-league'
+import Standings from '@/components/features/league/standings'
+import { setLeagueKey } from '@/components/features/league/store/league-store'
+import { useGetLeague } from '@/components/features/league/store/hooks/use-get-league'
 
 type Props = {
   leagueKey: League['leagueKey']
 }
 
 const LeagueHome: FC<Props> = ({ leagueKey }) => {
+  useEffect(() => {
+    setLeagueKey(leagueKey)
+  })
+
   const { response } = useGetLeague({
     leagueKey,
     leagueResources: ['settings', 'teams', 'standings'],
