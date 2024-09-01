@@ -3,24 +3,43 @@ import { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import { FC } from 'react'
 
+import { forceArray } from '@/utils/array'
 import { getSessionToken } from '@/utils/auth/helpers'
 import { PageParams } from '@/utils/types'
 import { yahooFetch } from '@/utils/yahoo/fetch'
-import { teamQuery } from '@/utils/yahoo/queries/team'
+import { TeamDto, teamQuery } from '@/utils/yahoo/queries/team'
 
 import { teamQueryKey } from '@/components/features/leagues/team/store/hooks/use-get-team'
 import TeamPage from '@/components/features/leagues/team/team-page'
 
 import { createQueryClient } from '@/configuration/react-query'
-import { buildPageTitle } from '@/configuration/seo'
+import { generatePageMeta } from '@/configuration/seo'
 
-/** @todo generate. */
-export const metadata: Metadata = {
-  title: buildPageTitle('Team'),
+type Props = PageParams<{ leagueid: string; teamid: string }>
+
+export const generateMetadata = async ({
+  params,
+}: Props): Promise<Metadata> => {
+  const accessToken = await getSessionToken({ cookies: cookies() })
+  const { leagueid, teamid } = params
+  const teamKey = `${leagueid}.t.${teamid}`
+  const { data } = await yahooFetch<TeamDto>({
+    url: teamQuery({
+      teamKey,
+    }),
+    token: accessToken,
+  })
+  const team = data?.team
+  return generatePageMeta({
+    title: team?.name,
+    images: forceArray(team?.teamLogos?.teamLogo)?.[0]?.url,
+  })
 }
 
-const Page: FC<PageParams<{ teamid: string }>> = async ({ params }) => {
-  const teamKey = params?.teamid
+const Page: FC<Props> = async ({ params }) => {
+  const { leagueid, teamid } = params
+
+  const teamKey = `${leagueid}.t.${teamid}`
 
   const accessToken = await getSessionToken({ cookies: cookies() })
 
