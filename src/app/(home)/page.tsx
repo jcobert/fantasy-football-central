@@ -1,8 +1,6 @@
 import { Metadata } from 'next'
 import { FC } from 'react'
 
-import { authRedirect } from '@/utils/auth/helpers'
-
 import AuthLink from '@/components/auth/auth-link'
 import PageLayout from '@/components/layout/page-layout'
 
@@ -13,8 +11,6 @@ export const metadata: Metadata = {
 }
 
 const Page: FC = async () => {
-  await authRedirect({ authenticated: true, url: '/leagues' })
-
   return (
     <PageLayout>
       <div className='flex flex-col items-center gap-6 sm:px-16__ pb-4__'>

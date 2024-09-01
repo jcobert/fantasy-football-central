@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import { FC } from 'react'
 
-import { authRedirect, getSessionToken } from '@/utils/auth/helpers'
+import { getSessionToken } from '@/utils/auth/helpers'
 import { yahooFetch } from '@/utils/yahoo/fetch'
 import { userLeaguesQuery } from '@/utils/yahoo/queries/user-leagues'
 
@@ -19,8 +19,6 @@ export const metadata: Metadata = {
 }
 
 const Page: FC = async () => {
-  await authRedirect()
-
   const accessToken = await getSessionToken({ cookies: cookies() })
 
   const queryClient = createQueryClient()

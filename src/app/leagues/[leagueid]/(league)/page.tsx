@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import { FC } from 'react'
 
-import { authRedirect, getSessionToken } from '@/utils/auth/helpers'
+import { getSessionToken } from '@/utils/auth/helpers'
 import { PageParams } from '@/utils/types'
 import { yahooFetch } from '@/utils/yahoo/fetch'
 import { leagueQuery } from '@/utils/yahoo/queries/league'
@@ -20,8 +20,6 @@ export const metadata: Metadata = {
 }
 
 const Page: FC<PageParams<{ leagueid: string }>> = async ({ params }) => {
-  await authRedirect()
-
   const leagueKey = params?.leagueid
 
   const accessToken = await getSessionToken({ cookies: cookies() })
