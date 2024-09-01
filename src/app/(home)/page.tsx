@@ -1,14 +1,11 @@
-import { Metadata } from 'next'
 import { FC } from 'react'
 
 import AuthLink from '@/components/auth/auth-link'
 import PageLayout from '@/components/layout/page-layout'
 
-import { buildPageTitle } from '@/configuration/seo'
+import { generatePageMeta } from '@/configuration/seo'
 
-export const metadata: Metadata = {
-  title: buildPageTitle('Home'),
-}
+export const metadata = generatePageMeta({ title: 'Home' })
 
 const Page: FC = async () => {
   return (

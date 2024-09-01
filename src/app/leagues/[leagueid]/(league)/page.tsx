@@ -1,22 +1,34 @@
 import { HydrationBoundary, dehydrate } from '@tanstack/react-query'
-import { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import { FC } from 'react'
 
 import { getSessionToken } from '@/utils/auth/helpers'
 import { PageParams } from '@/utils/types'
 import { yahooFetch } from '@/utils/yahoo/fetch'
-import { leagueQuery } from '@/utils/yahoo/queries/league'
+import { LeagueDto, leagueQuery } from '@/utils/yahoo/queries/league'
 
 import LeagueHome from '@/components/features/leagues/league-home'
 import { leagueQueryKey } from '@/components/features/leagues/store/hooks/use-get-league'
 
 import { createQueryClient } from '@/configuration/react-query'
-import { buildPageTitle } from '@/configuration/seo'
+import { generatePageMeta } from '@/configuration/seo'
 
-/** @todo generate. */
-export const metadata: Metadata = {
-  title: buildPageTitle('League'),
+type Props = PageParams<{ leagueid: string }>
+
+export const generateMetadata = async ({ params }: Props) => {
+  const accessToken = await getSessionToken({ cookies: cookies() })
+  const { leagueid: leagueKey } = params
+  const { data } = await yahooFetch<LeagueDto>({
+    url: leagueQuery({
+      leagueKey,
+    }),
+    token: accessToken,
+  })
+  const league = data?.league
+  return generatePageMeta({
+    title: league?.name,
+    images: league?.logoUrl,
+  })
 }
 
 const Page: FC<PageParams<{ leagueid: string }>> = async ({ params }) => {

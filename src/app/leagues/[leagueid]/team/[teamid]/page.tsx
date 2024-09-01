@@ -1,5 +1,4 @@
 import { HydrationBoundary, dehydrate } from '@tanstack/react-query'
-import { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import { FC } from 'react'
 
@@ -17,9 +16,7 @@ import { generatePageMeta } from '@/configuration/seo'
 
 type Props = PageParams<{ leagueid: string; teamid: string }>
 
-export const generateMetadata = async ({
-  params,
-}: Props): Promise<Metadata> => {
+export const generateMetadata = async ({ params }: Props) => {
   const accessToken = await getSessionToken({ cookies: cookies() })
   const { leagueid, teamid } = params
   const teamKey = `${leagueid}.t.${teamid}`
