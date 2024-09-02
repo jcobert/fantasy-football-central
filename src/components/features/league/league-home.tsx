@@ -7,8 +7,8 @@ import { IoTrophy } from 'react-icons/io5'
 import { League } from '@/utils/yahoo/types/common'
 
 import Standings from '@/components/features/league/standings'
-import { setLeagueKey } from '@/components/features/league/store/league-store'
 import { useGetLeague } from '@/components/features/league/store/hooks/use-get-league'
+import { setLeagueKey } from '@/components/features/league/store/league-store'
 
 type Props = {
   leagueKey: League['leagueKey']
@@ -17,7 +17,7 @@ type Props = {
 const LeagueHome: FC<Props> = ({ leagueKey }) => {
   useEffect(() => {
     setLeagueKey(leagueKey)
-  })
+  }, [])
 
   const { response } = useGetLeague({
     leagueKey,

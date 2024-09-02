@@ -7,7 +7,7 @@ import { OutcomeTotals, Team } from '@/utils/yahoo/types/common'
 import { useGetLeague } from '@/components/features/league/store/hooks/use-get-league'
 
 type Props = {
-  teamId?: Team['teamId']
+  // teamId?: Team['teamId']
   teamKey?: string
   teamRecord?: Partial<OutcomeTotals>
   division?: boolean
