@@ -2,12 +2,11 @@ import { FC } from 'react'
 
 import { cn } from '@/utils/style'
 import { getLeagueKeyFromTeamKey } from '@/utils/yahoo/league'
-import { OutcomeTotals, Team } from '@/utils/yahoo/types/common'
+import { OutcomeTotals } from '@/utils/yahoo/types/common'
 
 import { useGetLeague } from '@/components/features/league/store/hooks/use-get-league'
 
 type Props = {
-  // teamId?: Team['teamId']
   teamKey?: string
   teamRecord?: Partial<OutcomeTotals>
   division?: boolean
@@ -36,9 +35,8 @@ const Record: FC<Props> = ({
 
   // If teamRecord was provided we'll use that.
   // Otherwise we'll fetch it.
-  let record = teamRecord
-  if (!teamRecord)
-    record = division
+  let record =
+    teamRecord ?? division
       ? team?.teamStandings?.divisionalOutcomeTotals
       : team?.teamStandings?.outcomeTotals
 

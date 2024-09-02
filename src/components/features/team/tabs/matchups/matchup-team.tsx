@@ -71,7 +71,7 @@ const MatchupTeam: FC<Props> = ({
             </span>
             {/* Managers */}
             <Managers managers={team?.managers} />
-            <Record teamId={team?.teamId} teamKey={team?.teamKey} size='xs' />
+            <Record teamKey={team?.teamKey} size='xs' />
           </div>
         </div>
 
