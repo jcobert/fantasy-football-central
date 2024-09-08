@@ -22,7 +22,13 @@ const TeamPage: FC<Props> = ({ teamKey, leagueKey }) => {
 
   const { response } = useGetTeam({
     teamKey,
-    teamResources: ['roster', 'stats', 'matchups'],
+    teamResources: [
+      'roster',
+      'stats',
+      'matchups',
+      'transactions',
+      'draftresults',
+    ],
     queryOptions: { enabled: true },
   })
 
@@ -30,30 +36,19 @@ const TeamPage: FC<Props> = ({ teamKey, leagueKey }) => {
 
   return (
     <div className='flex flex-col gap-8 p-2 pb-8 sm:px-8 md:px-24'>
-      <div className='flex flex-col items-center gap-2'>
-        <div className='relative rounded-full size-14'>
-          {team ? (
-            <Image
-              className='object-contain object-center mx-auto border rounded-full shadow border-zinc-400'
-              src={team?.teamLogos?.teamLogo?.url || ''}
-              alt='team avatar'
-              fill
-            />
-          ) : (
-            <div className='w-full h-full rounded-full bg-zinc-400/50 animate-pulse'></div>
-          )}
+      <div className='flex flex-col items-center gap-2 mt-2'>
+        <div className='flex flex-col items-center gap-2'>
+          <Image
+            className='object-contain size-14 object-center mx-auto border rounded-full shadow border-zinc-400'
+            src={team?.teamLogos?.teamLogo?.url || ''}
+            alt='team avatar'
+            width={56}
+            height={56}
+          />
+          <h1 className='text-2xl font-bold text-center'>{team?.name}</h1>
         </div>
-        {team ? (
-          <h1 className='text-3xl font-bold text-center'>{team?.name}</h1>
-        ) : (
-          <div className='w-1/2 h-5 my-2 rounded-full bg-zinc-400/50 animate-pulse'></div>
-        )}
         <div>
-          {team ? (
-            <Managers team={team} />
-          ) : (
-            <div className='w-16 h-4 rounded-full bg-zinc-400/50 animate-pulse'></div>
-          )}
+          <Managers team={team} />
         </div>
       </div>
       <TeamTabs team={team} />

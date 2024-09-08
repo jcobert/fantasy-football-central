@@ -26,7 +26,7 @@ const TeamHistory: FC<Props> = ({ team }) => {
   )
 
   return (
-    <div className='flex flex-col gap-4 text-sm p-4 border rounded-md rounded-t-none border-t-0 border-zinc-300 bg-zinc-50 dark:border-zinc-500 dark:bg-zinc-600'>
+    <div className='flex flex-col gap-4 text-sm p-4 border rounded-md rounded-t-none border-t-0 border-zinc-300 bg-zinc-50__ dark:border-zinc-500 dark:bg-zinc-600'>
       {pastTeams?.map((t) => (
         <div key={t?.teamKey}>
           <div className='flex items-center gap-4'>

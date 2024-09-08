@@ -4,15 +4,16 @@ import { AiOutlineSwap, AiOutlineTeam } from 'react-icons/ai'
 import { MdPlayDisabled } from 'react-icons/md'
 import { TbClipboardList, TbScoreboard } from 'react-icons/tb'
 
-import { cn } from '@/utils/style'
 import { getPreviousMatchup } from '@/utils/yahoo/matchup'
-import { League, Team } from '@/utils/yahoo/types/common'
+import { Team } from '@/utils/yahoo/types/common'
 
-import Button from '@/components/common/button'
 import Tabs from '@/components/common/tabs'
+import { useGetLeague } from '@/components/features/league/store/hooks/use-get-league'
+import { useLeagueStore } from '@/components/features/league/store/league-store'
 import TeamInfo from '@/components/features/team/tabs/info/team-info'
 import MatchupCard from '@/components/features/team/tabs/matchups/matchup-card'
 import TeamRoster from '@/components/features/team/tabs/roster/team-roster'
+import TeamTransactions from '@/components/features/team/tabs/transactions/team-transactions'
 import NoResults from '@/components/no-results'
 
 type Props = {
@@ -20,7 +21,16 @@ type Props = {
 }
 
 const TeamTabs: FC<Props> = ({ team }) => {
-  const league = {} as League
+  const leagueKey = useLeagueStore.use.leagueKey() || ''
+
+  const { response } = useGetLeague({
+    leagueKey,
+    resources: ['settings', 'teams', 'standings', 'transactions'],
+    queryOptions: { enabled: true },
+  })
+
+  const league = response?.data?.league
+
   const matchups = team?.matchups?.matchup
   const activeMatchup = matchups?.find(
     (matchup) => matchup?.week === league?.currentWeek,
@@ -36,14 +46,14 @@ const TeamTabs: FC<Props> = ({ team }) => {
         // INFO
         {
           trigger: (
-            <h2 className='flex max-sm:flex-col items-center gap-1'>
+            <span className='flex max-sm:flex-col items-center gap-1'>
               <AiOutlineTeam className='text-xl' />
               <span className='text-sm'>Info</span>
-            </h2>
+            </span>
           ),
           content: (
             <div className='flex flex-col'>
-              {/* <h2 className="text-lg font-semibold">Overview</h2> */}
+              {/* <span className="text-lg font-semibold">Overview</span> */}
               <TeamInfo team={team} />
             </div>
           ),
@@ -51,14 +61,14 @@ const TeamTabs: FC<Props> = ({ team }) => {
         // ROSTER
         {
           trigger: (
-            <h2 className='flex max-sm:flex-col items-center gap-1'>
+            <span className='flex max-sm:flex-col items-center gap-1'>
               <TbClipboardList className='text-xl' />
               <span className='text-sm'>Roster</span>
-            </h2>
+            </span>
           ),
           content: (
             <div className='flex flex-col'>
-              <h2 className='text-lg font-semibold'>Current Roster</h2>
+              <span className='text-lg font-semibold'>Current Roster</span>
               <TeamRoster roster={team?.roster} />
             </div>
           ),
@@ -66,16 +76,16 @@ const TeamTabs: FC<Props> = ({ team }) => {
         // MATCHUPS
         {
           trigger: (
-            <h2 className='flex max-sm:flex-col items-center gap-1'>
+            <span className='flex max-sm:flex-col items-center gap-1'>
               <TbScoreboard className='text-xl' />
               <span className='text-sm'>Matchups</span>
-            </h2>
+            </span>
           ),
           content: (
             <div className='flex flex-col gap-8'>
               {/* Current Matchup */}
               <div>
-                <h2 className='text-lg font-semibold'>Current Matchup</h2>
+                <span className='text-lg font-semibold'>Current Matchup</span>
                 {!!activeMatchup ? (
                   <MatchupCard
                     matchup={activeMatchup}
@@ -98,7 +108,9 @@ const TeamTabs: FC<Props> = ({ team }) => {
               {/* Previous Matchup */}
               {!!previousMatchup && (
                 <div>
-                  <h2 className='text-lg font-semibold'>Previous Matchup</h2>
+                  <span className='text-lg font-semibold'>
+                    Previous Matchup
+                  </span>
                   <MatchupCard
                     matchup={previousMatchup}
                     linkTo='team'
@@ -118,7 +130,8 @@ const TeamTabs: FC<Props> = ({ team }) => {
               <div className='w-full mt-8'>
                 <Link
                   href={`/matchups/history?team=${team?.teamKey}`}
-                  className='w-fit mx-auto max-sm:w-full text-center justify-center flex items-center border gap-1 px-8 py-3 border-zinc-300 bg-zinc-100 hover:bg-zinc-200 rounded-md text-sky-700 dark:text-sky-700 dark:hover:text-sky-800 hover:text-sky-800 transition font-medium'
+                  // className='w-fit mx-auto max-sm:w-full text-center justify-center flex items-center border gap-1 px-8 py-3 border-zinc-300 bg-zinc-100 hover:bg-zinc-200 rounded-md text-sky-700 dark:text-sky-700 dark:hover:text-sky-800 hover:text-sky-800 transition font-medium'
+                  className='btn-outline sm:w-fit mx-auto'
                 >
                   {/* <MdHistory /> */}
                   View all matchups
@@ -128,34 +141,15 @@ const TeamTabs: FC<Props> = ({ team }) => {
           ),
         },
         // ACTIVITY
-        // {
-        //   trigger: (
-        //     <h2 className='flex max-sm:flex-col items-center gap-1'>
-        //       <AiOutlineSwap className='text-xl' />
-        //       <span className='text-sm'>Activity</span>
-        //     </h2>
-        //   ),
-        //   content: (
-        //     <div className='flex flex-col gap-8'>
-        //       {/* Transactions */}
-        //       <div>
-        //         <h2 className='text-lg font-semibold'>Recent Transactions</h2>
-        //         <Transactions transactions={transactions} limit={5} />
-        //       </div>
-
-        //       {/* All Transaction Button */}
-        //       <div className='w-full'>
-        //         <Button
-        //           className='w-fit mx-auto max-sm:w-full text-center justify-center flex items-center border gap-1 !px-8 !py-3 !border-zinc-300 bg-zinc-100 hover:bg-zinc-200 rounded-md text-sky-700 dark:text-sky-700 dark:hover:text-sky-800 hover:text-sky-800 transition font-medium'
-        //           onClick={() => setIsTransModalOpen(true)}
-        //         >
-        //           {/* <AiOutlineSwap /> */}
-        //           View all Transactions
-        //         </Button>
-        //       </div>
-        //     </div>
-        //   ),
-        // },
+        {
+          trigger: (
+            <span className='flex max-sm:flex-col items-center gap-1'>
+              <AiOutlineSwap className='text-xl' />
+              <span className='text-sm'>Activity</span>
+            </span>
+          ),
+          content: <TeamTransactions transactions={transactions} />,
+        },
       ]}
     />
   )

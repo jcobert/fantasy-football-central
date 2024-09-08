@@ -38,7 +38,7 @@ const TeamCard: FC<Props> = ({
 
   const { response } = useGetLeague({
     leagueKey,
-    leagueResources: ['settings', 'teams', 'standings'],
+    resources: ['settings', 'teams', 'standings'],
     queryOptions: { enabled: true },
   })
 

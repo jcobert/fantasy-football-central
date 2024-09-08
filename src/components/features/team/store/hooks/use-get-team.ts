@@ -19,9 +19,14 @@ export const teamQueryKey = {
 export const useGetTeam = ({
   teamKey,
   teamResources,
+  subresource,
   queryOptions,
 }: Params) => {
-  const url = teamQuery({ teamKey, teamResources })
+  const { enabled = false, ...options } = queryOptions || {}
+
+  const url = teamQuery({ teamKey, teamResources, subresource })
+
+  const queryEnabled = enabled && !!teamKey
 
   return useYahooQuery({
     url,
@@ -29,8 +34,10 @@ export const useGetTeam = ({
       queryKey: teamQueryKey.filtered({
         teamKey,
         teamResources,
+        subresource,
       }),
-      ...queryOptions,
+      enabled: queryEnabled,
+      ...options,
     },
   })
 }

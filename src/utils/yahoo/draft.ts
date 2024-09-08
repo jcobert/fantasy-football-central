@@ -3,10 +3,10 @@ import { orderedPlayerPositions, orderedPositionTypes } from './player'
 import {
   DraftPick,
   League,
-  Player,
   PlayerPosition,
   PositionType,
   Roster,
+  Team,
 } from './types/common'
 import { groupBy, intersectionBy, maxBy, round, sortBy } from 'lodash'
 
@@ -14,14 +14,12 @@ export type DraftSortType = 'pick' | 'cost' | 'position' | 'name'
 
 export type DraftFilterType = 'leagueTeam' | 'nflTeam' | 'position'
 
-export type DraftPickWithPlayer = DraftPick & { players?: { player?: Player } }
-
 export const sortDraftPicks = (
-  picks: DraftPickWithPlayer[] = [],
+  picks: DraftPick[] = [],
   type: DraftSortType = 'pick',
   direction: SortDirection = 'ascending',
 ) => {
-  let sortedPicks: DraftPickWithPlayer[] = []
+  let sortedPicks: DraftPick[] = []
   let sortDirection = direction
   switch (type) {
     case 'cost':
@@ -29,14 +27,11 @@ export const sortDraftPicks = (
         'cost',
         'round',
         'pick',
-      ] as (keyof DraftPickWithPlayer)[])
+      ] as (keyof DraftPick)[])
       // sortDirection = "descending";
       break
     case 'pick':
-      sortedPicks = sortBy(picks, [
-        'round',
-        'pick',
-      ] as (keyof DraftPickWithPlayer)[])
+      sortedPicks = sortBy(picks, ['round', 'pick'] as (keyof DraftPick)[])
       break
     case 'position':
       sortedPicks = sortBy(picks, (pick) => [
@@ -61,8 +56,8 @@ export const sortDraftPicks = (
 }
 
 export const getDraftSummary = (
-  draftPicks: DraftPickWithPlayer[] = [],
-  leagueTeams: League | null,
+  draftPicks: DraftPick[] = [],
+  { league, team }: { league?: League | null; team?: Team },
 ) => {
   const picksByNflTeam = groupBy(
     draftPicks,
@@ -76,8 +71,8 @@ export const getDraftSummary = (
 
   const picksByFantasyTeam = groupBy(draftPicks, (dp) => dp?.teamKey)
 
-  const draftResultsByNflTeam = Object.keys(picksByNflTeam)?.map((team) => {
-    const teamPicks = picksByNflTeam[team] || []
+  const draftResultsByNflTeam = Object.keys(picksByNflTeam)?.map((nflTeam) => {
+    const teamPicks = picksByNflTeam[nflTeam] || []
     const totalSpend = teamPicks
       ?.map((t) => t?.cost)
       ?.reduce((prev, curr) => prev + curr, 0)
@@ -86,9 +81,9 @@ export const getDraftSummary = (
     const positionBreakdown = groupBy(
       teamPicks?.map((pick) => pick),
       (data) => data?.players?.player?.primaryPosition,
-    ) as { [x in PlayerPosition]: DraftPickWithPlayer[] }
+    ) as { [x in PlayerPosition]: DraftPick[] }
     return {
-      team: team,
+      team: nflTeam,
       picks: teamPicks,
       totalSpend,
       averageSpend,
@@ -118,8 +113,8 @@ export const getDraftSummary = (
   )
 
   const draftResultsByFantasyTeam = Object.keys(picksByFantasyTeam)?.map(
-    (team) => {
-      const fantasyTeamPicks = picksByFantasyTeam[team] || []
+    (fantasyTeam) => {
+      const fantasyTeamPicks = picksByFantasyTeam[fantasyTeam] || []
       const totalSpend = fantasyTeamPicks
         ?.map((t) => t?.cost)
         ?.reduce((prev, curr) => prev + curr, 0)
@@ -131,7 +126,7 @@ export const getDraftSummary = (
       const positionBreakdown = groupBy(
         fantasyTeamPicks?.map((pick) => pick),
         (data) => data?.players?.player?.primaryPosition,
-      ) as { [x in PlayerPosition]: DraftPickWithPlayer[] }
+      ) as { [x in PlayerPosition]: DraftPick[] }
 
       const byPosition = Object.keys(positionBreakdown)?.map((pos) => {
         const position = pos as PlayerPosition
@@ -155,11 +150,11 @@ export const getDraftSummary = (
 
       const playerCount = fantasyTeamPicks?.length
 
-      const currentRoster = leagueTeams?.teams?.team?.find(
-        (t) => t?.teamKey === team,
+      const currentRoster = (
+        team ?? league?.teams?.team?.find((t) => t?.teamKey === team)
       )?.roster
       const picksOnRoster = getPicksOnRoster(
-        picksByFantasyTeam[team],
+        picksByFantasyTeam[fantasyTeam],
         currentRoster,
       )
       const loyalPickCount = picksOnRoster?.length
@@ -175,7 +170,7 @@ export const getDraftSummary = (
 
       return {
         team: team,
-        picks: picksByFantasyTeam[team],
+        picks: picksByFantasyTeam[fantasyTeam],
         totalSpend,
         averageSpend,
         highestPaid,
@@ -227,7 +222,7 @@ export const getDraftSummary = (
 }
 
 export const getPicksOnRoster = (
-  draftPicks: DraftPickWithPlayer[] = [],
+  draftPicks: DraftPick[] = [],
   currentRoster?: Roster,
 ) => {
   if (!currentRoster) return []

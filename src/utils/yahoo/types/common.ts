@@ -425,6 +425,8 @@ export type DraftPick = {
   cost: number
   teamKey: string
   playerKey: string
+  /** Only available if players subresource requested. */
+  players?: { player?: Player }
 }
 
 // __________________________________________________________________

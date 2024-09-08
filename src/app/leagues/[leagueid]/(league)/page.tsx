@@ -41,13 +41,13 @@ const Page: FC<PageParams<{ leagueid: string }>> = async ({ params }) => {
   await queryClient.prefetchQuery({
     queryKey: leagueQueryKey.filtered({
       leagueKey,
-      leagueResources: ['settings', 'teams', 'standings'],
+      resources: ['settings', 'teams', 'standings'],
     }),
     queryFn: () =>
       yahooFetch({
         url: leagueQuery({
           leagueKey,
-          leagueResources: ['settings', 'teams', 'standings'],
+          resources: ['settings', 'teams', 'standings'],
         }),
         token: accessToken,
       }),

@@ -4,11 +4,11 @@ import { League } from '@/utils/yahoo/types/common'
 import { createSelectors } from '@/utils/zustand'
 
 export type LeagueStore = {
-  leagueKey: League['leagueKey'] | null
+  leagueKey: League['leagueKey'] | undefined
 }
 
 const initialState: LeagueStore = {
-  leagueKey: null,
+  leagueKey: undefined,
 }
 
 const leagueStore = create<LeagueStore>()(() => ({ ...initialState }))

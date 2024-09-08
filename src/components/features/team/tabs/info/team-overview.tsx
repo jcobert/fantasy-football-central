@@ -2,6 +2,7 @@
 import { round } from 'lodash'
 import { FC, useState } from 'react'
 
+import { forceArray } from '@/utils/array'
 import { cn } from '@/utils/style'
 import { getAverageMatchupGrade } from '@/utils/yahoo/matchup'
 import { Team, Transaction, TransactionType } from '@/utils/yahoo/types/common'
@@ -27,14 +28,14 @@ const TeamOverview: FC<Props> = ({ team }) => {
   const pointsAgainst = team?.teamStandings?.pointsAgainst
   const pointDifferential = round((pointsFor ?? 0) - (pointsAgainst ?? 0), 2)
 
-  const allTransactions = team?.transactions?.transaction || []
+  const allTransactions = forceArray(team?.transactions?.transaction || [])
   const trades = allTransactions?.filter(
     (trans) => trans?.type === TransactionType.Trade,
   )
   const gpa = getAverageMatchupGrade(team?.matchups, team?.teamKey) ?? '--'
 
   return (
-    <div className='flex flex-col gap-2 text-sm p-4 border border-t-0 rounded-t-none rounded-md border-zinc-300 bg-zinc-50 dark:border-zinc-500 dark:bg-zinc-600'>
+    <div className='flex flex-col gap-2 text-sm p-4 border border-t-0 rounded-t-none rounded-md border-zinc-300 bg-zinc-50__ dark:border-zinc-500 dark:bg-zinc-600'>
       {/* Record */}
       <div>
         <h3 className='mb-1 font-medium border-b border-zinc-300 dark:border-zinc-500'>

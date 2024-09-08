@@ -6,8 +6,10 @@ import { forceArray } from '@/utils/array'
 import { getSessionToken } from '@/utils/auth/helpers'
 import { PageParams } from '@/utils/types'
 import { yahooFetch } from '@/utils/yahoo/fetch'
+import { leagueQuery } from '@/utils/yahoo/queries/league'
 import { TeamDto, teamQuery } from '@/utils/yahoo/queries/team'
 
+import { leagueQueryKey } from '@/components/features/league/store/hooks/use-get-league'
 import { teamQueryKey } from '@/components/features/team/store/hooks/use-get-team'
 import TeamPage from '@/components/features/team/team-page'
 
@@ -45,13 +47,40 @@ const Page: FC<Props> = async ({ params }) => {
   await queryClient.prefetchQuery({
     queryKey: teamQueryKey.filtered({
       teamKey,
-      teamResources: ['roster', 'stats', 'matchups'],
+      teamResources: [
+        'roster',
+        'stats',
+        'matchups',
+        'transactions',
+        'draftresults',
+      ],
     }),
     queryFn: () =>
       yahooFetch({
         url: teamQuery({
           teamKey,
-          teamResources: ['roster', 'stats', 'matchups'],
+          teamResources: [
+            'roster',
+            'stats',
+            'matchups',
+            'transactions',
+            'draftresults',
+          ],
+        }),
+        token: accessToken,
+      }),
+  })
+
+  await queryClient.prefetchQuery({
+    queryKey: leagueQueryKey.filtered({
+      leagueKey: leagueid,
+      resources: ['settings', 'teams', 'standings'],
+    }),
+    queryFn: () =>
+      yahooFetch({
+        url: leagueQuery({
+          leagueKey: leagueid,
+          resources: ['settings', 'teams', 'standings'],
         }),
         token: accessToken,
       }),

@@ -3,14 +3,14 @@ import Link from 'next/link'
 import { FC } from 'react'
 
 import { cn } from '@/utils/style'
-import { DraftPickWithPlayer, getPicksOnRoster } from '@/utils/yahoo/draft'
+import { DraftPick, getPicksOnRoster } from '@/utils/yahoo/draft'
 import { League } from '@/utils/yahoo/types/common'
 
 import { useLeagueStore } from '@/components/features/league/store/league-store'
 
 type Props = {
-  pick?: DraftPickWithPlayer
-  draftingTeamPicks?: DraftPickWithPlayer[]
+  pick?: DraftPick
+  draftingTeamPicks?: DraftPick[]
 } & Pick<DraftResultsProps, 'view'>
 
 const DraftPickCard: FC<Props> = ({ pick, view, draftingTeamPicks = [] }) => {

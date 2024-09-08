@@ -4,11 +4,11 @@ import { groupBy, maxBy, round, sortBy } from 'lodash'
 import { FC } from 'react'
 
 import { cn } from '@/utils/style'
-import { DraftPickWithPlayer } from '@/utils/yahoo/draft'
+import { DraftPick } from '@/utils/yahoo/draft'
 import { PlayerPosition } from '@/utils/yahoo/types/common'
 
 type Props = {
-  draftPicks?: DraftPickWithPlayer[]
+  draftPicks?: DraftPick[]
   className?: string
 }
 
@@ -30,7 +30,7 @@ const DraftSummary: FC<Props> = ({ draftPicks = [], className = '' }) => {
     const positionBreakdown = groupBy(
       picksByNflTeam[team]?.map((pick) => pick),
       (data) => data?.players?.player?.primaryPosition,
-    ) as { [x in PlayerPosition]: DraftPickWithPlayer[] }
+    ) as { [x in PlayerPosition]: DraftPick[] }
     return {
       team: team,
       picks: picksByNflTeam[team],

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
 import DraftPickCard from './draft-pick-card'
@@ -17,29 +16,20 @@ import {
 import { cn } from '@/utils/style'
 import {
   DraftFilterType,
-  DraftPickWithPlayer,
   DraftSortType,
   getDraftSummary,
   sortDraftPicks,
 } from '@/utils/yahoo/draft'
 import { getTeamByKey } from '@/utils/yahoo/team'
-import { League } from '@/utils/yahoo/types/common'
+import { DraftPick, League, Team } from '@/utils/yahoo/types/common'
 
 import Button from '@/components/common/button'
 import Collapsible from '@/components/common/collapsible'
+import { useGetLeague } from '@/components/features/league/store/hooks/use-get-league'
 import { useLeagueStore } from '@/components/features/league/store/league-store'
 import Managers from '@/components/features/team/managers'
+import { useGetTeam } from '@/components/features/team/store/hooks/use-get-team'
 import SelectInput, { SelectOption } from '@/components/inputs/select-input'
-
-/* eslint-disable react-hooks/exhaustive-deps */
-
-/* eslint-disable react-hooks/exhaustive-deps */
-
-/* eslint-disable react-hooks/exhaustive-deps */
-
-/* eslint-disable react-hooks/exhaustive-deps */
-
-/* eslint-disable react-hooks/exhaustive-deps */
 
 const sortButtons: SortButtonMeta<DraftSortType>[] = [
   {
@@ -65,35 +55,64 @@ const sortButtons: SortButtonMeta<DraftSortType>[] = [
 ]
 
 export type DraftResultsProps = {
-  draftPicks?: DraftPickWithPlayer[]
+  teamKey?: Team['teamKey']
+  draftPicks?: DraftPick[]
   view?: 'team' | 'league'
   className?: string
 }
 
 const DraftResults: FC<DraftResultsProps> = ({
-  draftPicks,
+  teamKey,
   view = 'team',
   className = '',
 }) => {
+  const leagueKey = useLeagueStore.use.leagueKey()
+
+  const teamQuery = useGetTeam({
+    teamKey,
+    teamResources: ['draftresults'],
+    subresource: 'players',
+    queryOptions: { enabled: true },
+  })
+
+  const rosterQuery = useGetTeam({
+    teamKey,
+    teamResources: ['roster'],
+    queryOptions: { enabled: true },
+  })
+
+  const leagueQuery = useGetLeague({
+    leagueKey,
+    resources: ['teams'],
+    subresources: ['roster'],
+    queryOptions: { enabled: view === 'league' },
+  })
+
+  const team = teamQuery?.response?.data?.team
+
+  const draftPicks = team?.draftResults?.draftResult
+
   const [sortType, setSortType] = useState<DraftSortType>('pick')
   const [sortDirection, setSortDirection] = useState<SortDirection>('ascending')
 
   const [activeFilters, setActiveFilters] = useState<
     ActiveFilter<DraftFilterType>[]
   >([])
-  const [filteredPicks, setFilteredPicks] = useState<DraftPickWithPlayer[]>(
+  const [filteredPicks, setFilteredPicks] = useState<DraftPick[]>(
     draftPicks || [],
   )
 
-  // const leagueTeams = useLeagueStore.use.leagueTeams()
-  const league = {} as League
+  const league = leagueQuery?.response?.data?.league
 
   // Draft summary stats
   const {
     draftResultsByNflTeam,
     draftResultsByPosition,
     draftResultsByFantasyTeam,
-  } = getDraftSummary(draftPicks, league)
+  } = getDraftSummary(draftPicks, {
+    team: rosterQuery?.response?.data?.team,
+    league,
+  })
 
   const picks = useMemo(() => {
     return sortDraftPicks(
@@ -215,16 +234,17 @@ const DraftResults: FC<DraftResultsProps> = ({
       setActiveFilters([])
     } else {
       const filteredSet = (draftPicks ?? [])?.filter((pick) => {
-        let searchValue
+        let searchValue = ''
         switch (filterType) {
           case 'leagueTeam':
             searchValue = pick?.teamKey
             break
           case 'nflTeam':
-            searchValue = pick?.players?.player?.editorialTeamAbbr
+            searchValue = pick?.players?.player?.editorialTeamAbbr ?? ''
             break
           case 'position':
-            searchValue = pick?.players?.player?.primaryPosition
+            searchValue = pick?.players?.player?.primaryPosition ?? ''
+            break
           default:
             break
         }
@@ -236,7 +256,7 @@ const DraftResults: FC<DraftResultsProps> = ({
 
   if (!draftPicks?.length)
     return (
-      <div className='flex flex-col gap-1 p-4 px-2 border rounded-md border-zinc-300 bg-zinc-50 dark:border-zinc-500 dark:bg-zinc-600'>
+      <div className='flex flex-col gap-1 p-4 px-2 border border-t-0 rounded-md rounded-t-none border-zinc-300 bg-zinc-50__ dark:border-zinc-500 dark:bg-zinc-600'>
         <div className='flex flex-col gap-3 p-2 overflow-hidden'>
           {range(1, 9)?.map((i) => (
             <div
@@ -257,7 +277,7 @@ const DraftResults: FC<DraftResultsProps> = ({
   return (
     <div
       className={cn(
-        'flex flex-col gap-4 text-sm p-2 border rounded-md border-zinc-300 bg-zinc-50 dark:border-zinc-500 dark:bg-zinc-600',
+        'flex flex-col gap-4 text-sm p-2 border rounded-md border-zinc-300 bg-zinc-50__ dark:border-zinc-500 dark:bg-zinc-600',
         {
           [className]: !!className,
         },
@@ -379,7 +399,7 @@ const DraftResults: FC<DraftResultsProps> = ({
               <h4>Position Breakdown</h4>
               <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 text-xs'>
                 {draftResultsByFantasyTeam
-                  ?.find((team) => team?.team === picks[0]?.teamKey)
+                  ?.find((team) => team?.team?.teamKey === picks[0]?.teamKey)
                   ?.positionBreakdown?.map((pos) => {
                     return (
                       <div
@@ -403,10 +423,10 @@ const DraftResults: FC<DraftResultsProps> = ({
               <div className='flex flex-col gap-2 text-xs'>
                 <span>
                   {`Picks still owned: ${draftResultsByFantasyTeam?.find(
-                    (team) => team?.team === picks[0]?.teamKey,
+                    (team) => team?.team?.teamKey === picks[0]?.teamKey,
                   )?.loyalty
                     ?.loyalPickCount} (${draftResultsByFantasyTeam?.find(
-                    (team) => team?.team === picks[0]?.teamKey,
+                    (team) => team?.team?.teamKey === picks[0]?.teamKey,
                   )?.loyalty?.loyaltyPercentage}%)`}
                 </span>
               </div>

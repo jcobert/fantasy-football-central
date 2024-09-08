@@ -22,19 +22,26 @@ export const leagueQueryKey = {
 
 export const useGetLeague = ({
   leagueKey,
-  leagueResources,
+  resources,
+  subresources,
   queryOptions,
 }: Params) => {
-  const url = leagueQuery({ leagueKey, leagueResources })
+  const { enabled, ...options } = queryOptions || {}
+
+  const url = leagueQuery({ leagueKey, resources, subresources })
+
+  const queryEnabled = enabled && !!leagueKey
 
   return useYahooQuery({
     url,
     queryOptions: {
       queryKey: leagueQueryKey.filtered({
         leagueKey,
-        leagueResources,
+        resources,
+        subresources,
       }),
-      ...queryOptions,
+      enabled: queryEnabled,
+      ...options,
     },
   })
 }
