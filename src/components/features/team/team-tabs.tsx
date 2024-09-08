@@ -88,6 +88,7 @@ const TeamTabs: FC<Props> = ({ team }) => {
                 <span className='text-lg font-semibold'>Current Matchup</span>
                 {!!activeMatchup ? (
                   <MatchupCard
+                    leagueKey={leagueKey}
                     matchup={activeMatchup}
                     linkTo='team'
                     focusedTeam={team?.teamKey}
@@ -112,6 +113,7 @@ const TeamTabs: FC<Props> = ({ team }) => {
                     Previous Matchup
                   </span>
                   <MatchupCard
+                    leagueKey={leagueKey}
                     matchup={previousMatchup}
                     linkTo='team'
                     focusedTeam={team?.teamKey}
@@ -127,13 +129,12 @@ const TeamTabs: FC<Props> = ({ team }) => {
                 </div>
               )}
               {/* Link to all matchups */}
-              <div className='w-full mt-8'>
+              <div className='w-full mt-4'>
                 <Link
-                  href={`/matchups/history?team=${team?.teamKey}`}
-                  // className='w-fit mx-auto max-sm:w-full text-center justify-center flex items-center border gap-1 px-8 py-3 border-zinc-300 bg-zinc-100 hover:bg-zinc-200 rounded-md text-sky-700 dark:text-sky-700 dark:hover:text-sky-800 hover:text-sky-800 transition font-medium'
+                  // href={`/matchups/history?team=${team?.teamKey}`}
+                  href=''
                   className='btn-outline sm:w-fit mx-auto'
                 >
-                  {/* <MdHistory /> */}
                   View all matchups
                 </Link>
               </div>

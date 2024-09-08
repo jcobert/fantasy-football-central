@@ -29,7 +29,7 @@ const TeamTransactions: FC<Props> = ({ transactions }) => {
         <Transactions transactions={transactions} limit={5} />
       </div>
 
-      <div className='w-full'>
+      <div className='w-full mt-4'>
         <Button
           // className='w-fit mx-auto max-sm:w-full text-center justify-center flex items-center border gap-1 !px-8 !py-3 !border-zinc-300 bg-zinc-100 hover:bg-zinc-200 rounded-md text-sky-700 dark:text-sky-700 dark:hover:text-sky-800 hover:text-sky-800 transition font-medium'
           className='btn-outline mx-auto'

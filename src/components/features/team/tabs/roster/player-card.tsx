@@ -38,8 +38,11 @@ const PlayerCard: FC<Props> = ({
 
   const playerQuery = useGetPlayer({
     playerKey: player?.playerKey,
-    playerResources: ['stats'],
-    queryOptions: { enabled: !player?.playerStats, refetchOnWindowFocus: true },
+    resources: ['stats'],
+    queryOptions: {
+      enabled: !player?.playerStats,
+      refetchOnWindowFocus: true,
+    },
   })
 
   const fetchedPlayer = playerQuery?.response?.data?.player
@@ -78,7 +81,7 @@ const PlayerCard: FC<Props> = ({
       className={cn(
         'flex flex-col flex-auto gap-1 p-2 py-1 md:py-2 border rounded-md shadow-sm',
         {
-          'bg-zinc-50 dark:border-zinc-400 dark:bg-zinc-500 border-zinc-300':
+          'bg-zinc-50__ dark:border-zinc-400 dark:bg-zinc-500 border-zinc-300':
             noStatus && !onBench && !empty,
           'bg-zinc-200 dark:bg-zinc-700 border-zinc-300 dark:border-zinc-500':
             onBench && !empty,

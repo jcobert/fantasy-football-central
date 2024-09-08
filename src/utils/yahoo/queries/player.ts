@@ -7,14 +7,14 @@ export type PlayerQueryParams = {
    *
    * `"/player;out=${...playerResources}"`
    */
-  playerResources?: PlayerEndpointResource[]
+  resources?: PlayerEndpointResource[]
   /**
    * A subresource of a single player resource.
    * Only applies when one player resource is provided.
    *
    * `"/player/${playerResources}/${subresource}"`
    */
-  subresource?: 'players'
+  subresources?: string[]
   filter?: 'season' | 'week' | 'lastweek' | 'lastmonth'
   week?: number | 'current'
 }
@@ -36,21 +36,19 @@ export const playerQuery = (params?: PlayerQueryParams) => {
   const { playerKey } = params || {}
   const base = `/player/${playerKey}`
 
-  const playerResources =
-    (params?.playerResources || [])?.length > 1
-      ? `;out=${params?.playerResources?.join(',')}`
+  const resources =
+    (params?.resources || [])?.length > 1
+      ? `;out=${params?.resources?.join(',')}`
       : ''
 
   const resource =
-    params?.playerResources?.length === 1
-      ? `/${params?.playerResources?.[0]}`
-      : ''
+    params?.resources?.length === 1 ? `/${params?.resources?.[0]}` : ''
 
   const subresource =
-    resource && params?.subresource ? `/${params?.subresource}` : ''
+    resource && params?.subresources ? `/${params?.subresources}` : ''
 
-  if (playerResources) {
-    return `${base}${playerResources}`
+  if (resources) {
+    return `${base}${resources}`
   }
   if (subresource) {
     return `${base}${resource}${subresource}`

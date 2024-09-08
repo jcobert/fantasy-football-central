@@ -5,14 +5,14 @@ import { MdHistory } from 'react-icons/md'
 import { cn } from '@/utils/style'
 import { Matchup, MatchupGrade } from '@/utils/yahoo/types/common'
 
-import MatchupTeam from '@/components/features/team/tabs/matchups/matchup-team'
+import MatchupTeam, {
+  MatchupTeamProps,
+} from '@/components/features/team/tabs/matchups/matchup-team'
 
-type Props = {
+type Props = Pick<MatchupTeamProps, 'focusedTeam' | 'linkTo' | 'leagueKey'> & {
   matchup?: Matchup
   hideActions?: boolean
   heading?: ReactNode
-  focusedTeam?: string
-  linkTo?: 'matchups' | 'team'
   className?: string
 }
 
@@ -20,15 +20,15 @@ const MatchupCard: FC<Props> = ({
   matchup,
   hideActions = false,
   heading,
-  focusedTeam,
-  linkTo = 'matchups',
   className = '',
+  ...rest
 }) => {
   const teams = matchup?.teams?.team || []
-  const isInProgress = matchup?.status === 'midevent'
   const winner = matchup?.winnerTeamKey
+  // const isInProgress = matchup?.status === 'midevent'
 
-  const historyLink = `/matchups/history?t1=${teams?.[0]?.teamKey}&t2=${teams?.[1]?.teamKey}`
+  // const historyLink = `/matchups/history?t1=${teams?.[0]?.teamKey}&t2=${teams?.[1]?.teamKey}`
+  const historyLink = ''
 
   const defaultHeading = (
     <div className='flex flex-col gap-1'>
@@ -49,9 +49,9 @@ const MatchupCard: FC<Props> = ({
   return (
     <div
       className={cn(
-        'border rounded-md shadow p-2 bg-zinc-50 dark:bg-zinc-600 flex flex-col gap-2',
+        'border rounded-md shadow p-2 bg-zinc-50__ dark:bg-zinc-600 flex flex-col gap-2',
         {
-          'border-sky-500': isInProgress,
+          // 'border-sky-500': isInProgress,
           className,
         },
       )}
@@ -67,16 +67,15 @@ const MatchupCard: FC<Props> = ({
               key={team?.teamKey}
               team={team}
               grade={grade}
-              focusedTeam={focusedTeam}
-              linkTo={linkTo}
               winningTeam={winner}
+              {...rest}
             />
           )
         })}
       </div>
 
       {/* Actions */}
-      {!hideActions && (
+      {!hideActions && historyLink && (
         <div className='self-end max-sm:mt-1'>
           <Link
             href={historyLink}

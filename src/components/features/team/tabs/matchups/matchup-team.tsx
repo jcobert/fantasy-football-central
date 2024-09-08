@@ -3,21 +3,23 @@ import Link from 'next/link'
 import { FC } from 'react'
 
 import { cn } from '@/utils/style'
-import { MatchupGrade, Team } from '@/utils/yahoo/types/common'
+import { League, MatchupGrade, Team } from '@/utils/yahoo/types/common'
 
 import Managers from '@/components/features/team/managers'
 import Record from '@/components/features/team/record'
 
-type Props = {
+export type MatchupTeamProps = {
   team: Team
+  leagueKey: League['leagueKey']
   grade?: MatchupGrade['grade']
   focusedTeam?: string
   linkTo?: 'matchups' | 'team'
   winningTeam?: string
 }
 
-const MatchupTeam: FC<Props> = ({
+const MatchupTeam: FC<MatchupTeamProps> = ({
   team,
+  leagueKey,
   grade,
   focusedTeam,
   linkTo = 'matchups',
@@ -40,10 +42,10 @@ const MatchupTeam: FC<Props> = ({
       href={
         linkTo === 'matchups'
           ? `/matchups/history?team=${team?.teamKey}`
-          : `/league/${team?.teamId}`
+          : `/leagues/${leagueKey}/team/${team?.teamId}`
       }
       className={cn(
-        'border group first-of-type:border-b-0 first-of-type:rounded-t-md last-of-type:rounded-b-md last-of-type:border-t-0 p-2 transition bg-zinc-50 hover:bg-zinc-200 dark:bg-zinc-700 dark:hover:bg-zinc-600',
+        'border group first-of-type:border-b-0 first-of-type:rounded-t-md last-of-type:rounded-b-md last-of-type:border-t-0 p-2 transition bg-zinc-50__ hover:bg-zinc-200 dark:bg-zinc-700 dark:hover:bg-zinc-600',
         {
           '!bg-emerald-100 dark:!bg-emerald-700 border-emerald-500 dark:border-emerald-300 !border':
             winner && (isFocusedTeam || !focusedTeam),

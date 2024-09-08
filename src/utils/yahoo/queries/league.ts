@@ -59,21 +59,3 @@ export const leagueQuery = (params?: LeagueQueryParams) => {
   }
   return base
 }
-
-// /**
-//  * Gets a single league. Accepts an array of league resources.
-//  *
-//  * `"/league/${leagueKey};out=${resources}"`
-//  */
-// export const leagueQuery = (params?: LeagueQueryParams) => {
-//   const { leagueKey } = params || {}
-
-//   const resources = params?.resources?.length
-//     ? `;out=${params?.resources?.join(',')}`
-//     : ''
-//   // const resources = params?.resources?.length
-//   //   ? `;out=${params?.resources?.join(',')}`
-//   //   : ''
-
-//   return `/league/${leagueKey}${resources}`
-// }
