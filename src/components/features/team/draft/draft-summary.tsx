@@ -4,8 +4,7 @@ import { groupBy, maxBy, round, sortBy } from 'lodash'
 import { FC } from 'react'
 
 import { cn } from '@/utils/style'
-import { DraftPick } from '@/utils/yahoo/draft'
-import { PlayerPosition } from '@/utils/yahoo/types/common'
+import { DraftPick, PlayerPosition } from '@/utils/yahoo/types/common'
 
 type Props = {
   draftPicks?: DraftPick[]

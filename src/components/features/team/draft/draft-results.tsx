@@ -21,7 +21,7 @@ import {
   sortDraftPicks,
 } from '@/utils/yahoo/draft'
 import { getTeamByKey } from '@/utils/yahoo/team'
-import { DraftPick, League, Team } from '@/utils/yahoo/types/common'
+import { DraftPick, Team } from '@/utils/yahoo/types/common'
 
 import Button from '@/components/common/button'
 import Collapsible from '@/components/common/collapsible'

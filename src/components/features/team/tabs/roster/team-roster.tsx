@@ -5,8 +5,9 @@ import { FC } from 'react'
 
 import { formatPositionType } from '@/utils/yahoo/player'
 import { getAllRosterSpots } from '@/utils/yahoo/team'
-import { League, PositionType, Roster } from '@/utils/yahoo/types/common'
+import { PositionType, Roster } from '@/utils/yahoo/types/common'
 
+import { useGetLeague } from '@/components/features/league/store/hooks/use-get-league'
 import { useLeagueStore } from '@/components/features/league/store/league-store'
 import PlayerCard from '@/components/features/team/tabs/roster/player-card'
 
@@ -15,10 +16,17 @@ type Props = {
 }
 
 const TeamRoster: FC<Props> = ({ roster }) => {
-  // const leagueSettings = useLeagueStore.use.leagueSettings()
-  const leagueSettings = {} as League
-  const rosterPositions =
-    leagueSettings?.settings?.rosterPositions?.rosterPosition
+  const leagueKey = useLeagueStore.use.leagueKey()
+
+  const leagueQuery = useGetLeague({
+    leagueKey,
+    resources: ['settings'],
+    queryOptions: { enabled: true },
+  })
+
+  const leagueSettings = leagueQuery?.response?.data?.league?.settings
+
+  const rosterPositions = leagueSettings?.rosterPositions?.rosterPosition
 
   const players = roster?.players?.player || []
   const allRosterSpots = getAllRosterSpots({ players, rosterPositions })

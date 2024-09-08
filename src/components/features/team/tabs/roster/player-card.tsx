@@ -6,12 +6,12 @@ import { FiAlertTriangle } from 'react-icons/fi'
 
 import { cn } from '@/utils/style'
 import { getPlayerWithDetailedStats } from '@/utils/yahoo/player'
-import { League, Player, RosterPosition } from '@/utils/yahoo/types/common'
+import { Player, RosterPosition } from '@/utils/yahoo/types/common'
 
 import LoadingDots from '@/components/common/loading-dots'
+import { useGetLeague } from '@/components/features/league/store/hooks/use-get-league'
 import { useLeagueStore } from '@/components/features/league/store/league-store'
-
-// import { useGetPlayer } from '@/app/hooks/use-get-player'
+import { useGetPlayer } from '@/components/features/player/store/hooks/use-get-player'
 
 type Props = {
   player?: Player
@@ -24,10 +24,25 @@ const PlayerCard: FC<Props> = ({
   player,
   empty = false,
   rosterSpot,
-  week = 'current',
+  // week = 'current',
 }) => {
-  // const leagueSettings = useLeagueStore.use.leagueSettings()
-  const league = {} as League
+  const leagueKey = useLeagueStore.use.leagueKey()
+
+  const leagueQuery = useGetLeague({
+    leagueKey,
+    resources: ['settings'],
+    queryOptions: { enabled: true },
+  })
+
+  const league = leagueQuery?.response?.data?.league
+
+  const playerQuery = useGetPlayer({
+    playerKey: player?.playerKey,
+    playerResources: ['stats'],
+    queryOptions: { enabled: !player?.playerStats, refetchOnWindowFocus: true },
+  })
+
+  const fetchedPlayer = playerQuery?.response?.data?.player
 
   // const { data, isFetching } = useGetPlayer({
   //   playerKey: player?.playerKey,
@@ -39,8 +54,7 @@ const PlayerCard: FC<Props> = ({
   // })
 
   const playerWithStats = getPlayerWithDetailedStats({
-    // player: player ?? data,
-    player,
+    player: fetchedPlayer ?? player,
     settings: league?.settings,
   })
 
@@ -154,15 +168,15 @@ const PlayerCard: FC<Props> = ({
             )}
 
             {/* Points */}
-            {/* {isFetching ? (
+            {playerQuery?.isFetching ? (
               <LoadingDots size='sm' />
-            ) : ( */}
-            <div className='flex flex-col items-center gap-1 text-xs'>
-              <span className={cn({ 'text-red-700': pointTotal < 0 })}>
-                {pointTotal}
-              </span>
-            </div>
-            {/* )} */}
+            ) : (
+              <div className='flex flex-col items-center gap-1 text-xs'>
+                <span className={cn({ 'text-red-700': pointTotal < 0 })}>
+                  {pointTotal}
+                </span>
+              </div>
+            )}
           </>
         )}
       </div>

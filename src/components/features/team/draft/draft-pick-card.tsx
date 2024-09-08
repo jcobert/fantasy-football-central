@@ -3,9 +3,10 @@ import Link from 'next/link'
 import { FC } from 'react'
 
 import { cn } from '@/utils/style'
-import { DraftPick, getPicksOnRoster } from '@/utils/yahoo/draft'
-import { League } from '@/utils/yahoo/types/common'
+import { getPicksOnRoster } from '@/utils/yahoo/draft'
+import { DraftPick } from '@/utils/yahoo/types/common'
 
+import { useGetLeague } from '@/components/features/league/store/hooks/use-get-league'
 import { useLeagueStore } from '@/components/features/league/store/league-store'
 
 type Props = {
@@ -14,8 +15,16 @@ type Props = {
 } & Pick<DraftResultsProps, 'view'>
 
 const DraftPickCard: FC<Props> = ({ pick, view, draftingTeamPicks = [] }) => {
-  // const leagueTeams = useLeagueStore.use.leagueTeams()
-  const league = {} as League
+  const leagueKey = useLeagueStore.use.leagueKey()
+
+  const leagueQuery = useGetLeague({
+    leagueKey,
+    resources: ['teams'],
+    subresources: ['roster'],
+    queryOptions: { enabled: view === 'league' },
+  })
+
+  const league = leagueQuery?.response?.data?.league
 
   const player = pick?.players?.player
   const draftingTeam = league?.teams?.team?.find(
@@ -79,7 +88,7 @@ const DraftPickCard: FC<Props> = ({ pick, view, draftingTeamPicks = [] }) => {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={player?.headshot?.url || ''}
-              alt='player photo'
+              alt='player'
               className='object-scale-down object-center w-full h-full rounded-full'
             />
           </div>
