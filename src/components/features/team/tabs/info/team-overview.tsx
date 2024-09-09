@@ -35,7 +35,7 @@ const TeamOverview: FC<Props> = ({ team }) => {
   const gpa = getAverageMatchupGrade(team?.matchups, team?.teamKey) ?? '--'
 
   return (
-    <div className='flex flex-col gap-2 text-sm p-4 border border-t-0 rounded-t-none rounded-md border-zinc-300 bg-zinc-50__ dark:border-zinc-500 dark:bg-zinc-600'>
+    <div className='flex flex-col gap-2 text-sm p-4 border border-t-0 rounded-t-none rounded-md border-zinc-300__ bg-zinc-50__ dark:border-zinc-500 dark:bg-zinc-600'>
       {/* Record */}
       <div>
         <h3 className='mb-1 font-medium border-b border-zinc-300 dark:border-zinc-500'>

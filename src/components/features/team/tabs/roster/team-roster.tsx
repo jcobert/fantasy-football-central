@@ -52,7 +52,7 @@ const TeamRoster: FC<Props> = ({ roster }) => {
     )
 
   return (
-    <div className='flex flex-col gap-8 p-4 px-2 border rounded-md border-zinc-400 bg-zinc-50__ dark:border-zinc-500 dark:bg-zinc-600'>
+    <div className='flex flex-col gap-8 p-4 px-2 border rounded-md border-zinc-400__ bg-zinc-50__ dark:border-zinc-500 dark:bg-zinc-600'>
       {Object.keys(allRosterSpots)?.map((group) => (
         <div key={group} className='flex flex-col w-full gap-1'>
           <span className='font-medium'>{formatPositionType(group)}</span>

@@ -19,7 +19,7 @@ const TeamInfo: FC<Props> = ({ team }) => {
         <Collapsible
           header={<h2 className='text-lg font-semibold'>Overview</h2>}
           defaultOpen
-          triggerClassName='w-full border-zinc-300 bg-zinc-50__ dark:border-zinc-500 dark:bg-zinc-600 p-4 border data-[state=open]:border-b-zinc-100 data-[state=open]:rounded-b-none rounded-md'
+          triggerClassName='w-full border-zinc-300__ shadow-sm data-[state=open]:shadow-none bg-zinc-50__ dark:border-zinc-500 dark:bg-zinc-600 p-4 border data-[state=open]:border-b-zinc-100 data-[state=open]:rounded-b-none rounded-md'
         >
           <TeamOverview team={team} />
         </Collapsible>
@@ -29,7 +29,7 @@ const TeamInfo: FC<Props> = ({ team }) => {
       <div>
         <Collapsible
           header={<h2 className='text-lg font-semibold'>Draft Results</h2>}
-          triggerClassName='w-full border-zinc-300 bg-zinc-50__ dark:border-zinc-500 dark:bg-zinc-600 p-4 border data-[state=open]:border-b-zinc-100 data-[state=open]:rounded-b-none rounded-md'
+          triggerClassName='w-full border-zinc-300__ shadow-sm data-[state=open]:shadow-none bg-zinc-50__ dark:border-zinc-500 dark:bg-zinc-600 p-4 border data-[state=open]:border-b-zinc-100 data-[state=open]:rounded-b-none rounded-md'
         >
           <DraftResults
             teamKey={team?.teamKey}
@@ -42,7 +42,7 @@ const TeamInfo: FC<Props> = ({ team }) => {
       <div>
         <Collapsible
           header={<h2 className='text-lg font-semibold'>Past Seasons</h2>}
-          triggerClassName='w-full border-zinc-300 bg-zinc-50__ dark:border-zinc-500 dark:bg-zinc-600 p-4 border data-[state=open]:border-b-zinc-100 data-[state=open]:rounded-b-none rounded-md'
+          triggerClassName='w-full border-zinc-300__ shadow-sm data-[state=open]:shadow-none bg-zinc-50__ dark:border-zinc-500 dark:bg-zinc-600 p-4 border data-[state=open]:border-b-zinc-100 data-[state=open]:rounded-b-none rounded-md'
         >
           <TeamHistory team={team} />
         </Collapsible>

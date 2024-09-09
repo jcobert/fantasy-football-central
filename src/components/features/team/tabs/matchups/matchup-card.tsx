@@ -49,7 +49,7 @@ const MatchupCard: FC<Props> = ({
   return (
     <div
       className={cn(
-        'border rounded-md shadow p-2 bg-zinc-50__ dark:bg-zinc-600 flex flex-col gap-2',
+        'border rounded-md shadow-sm p-2 bg-zinc-50__ dark:bg-zinc-600 flex flex-col gap-2',
         {
           // 'border-sky-500': isInProgress,
           className,

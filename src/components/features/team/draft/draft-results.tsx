@@ -277,7 +277,7 @@ const DraftResults: FC<DraftResultsProps> = ({
   return (
     <div
       className={cn(
-        'flex flex-col gap-4 text-sm p-2 border rounded-md border-zinc-300 bg-zinc-50__ dark:border-zinc-500 dark:bg-zinc-600',
+        'flex flex-col gap-4 text-sm p-2 border rounded-md border-zinc-300__ bg-zinc-50__ dark:border-zinc-500 dark:bg-zinc-600',
         {
           [className]: !!className,
         },

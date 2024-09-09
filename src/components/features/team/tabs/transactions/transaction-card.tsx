@@ -97,7 +97,7 @@ const TransactionCard: FC<Props> = ({ transaction }) => {
   return (
     <div
       className={cn(
-        'flex flex-col text-xs flex-auto items-center_ flex-wrap_ gap-2 p-1 sm:p-3 border rounded-md transition border-zinc-400- dark:border-zinc-500 group bg-zinc-50__ dark:bg-zinc-600',
+        'flex flex-col text-xs flex-auto items-center_ flex-wrap_ gap-2 p-1 sm:p-3 border rounded-md transition border-zinc-300 dark:border-zinc-500 group bg-zinc-50__ dark:bg-zinc-600',
         {
           // "bg-green-400/20": transaction?.type === TransactionType.Add,
           // "bg-red-400/20": transaction?.type === TransactionType.Drop,

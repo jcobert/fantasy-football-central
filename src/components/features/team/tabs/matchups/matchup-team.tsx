@@ -45,7 +45,7 @@ const MatchupTeam: FC<MatchupTeamProps> = ({
           : `/leagues/${leagueKey}/team/${team?.teamId}`
       }
       className={cn(
-        'border group first-of-type:border-b-0 first-of-type:rounded-t-md last-of-type:rounded-b-md last-of-type:border-t-0 p-2 transition bg-zinc-50__ hover:bg-zinc-200 dark:bg-zinc-700 dark:hover:bg-zinc-600',
+        'border group first-of-type:border-b-0 first-of-type:rounded-t-md last-of-type:rounded-b-md last-of-type:border-t-0 p-2 transition bg-zinc-50__ hover:bg-zinc-200 dark:bg-zinc-700 dark:hover:bg-zinc-600 border-zinc-300',
         {
           '!bg-emerald-100 dark:!bg-emerald-700 border-emerald-500 dark:border-emerald-300 !border':
             winner && (isFocusedTeam || !focusedTeam),
