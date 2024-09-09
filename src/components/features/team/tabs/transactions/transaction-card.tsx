@@ -51,9 +51,7 @@ const TransactionCard: FC<Props> = ({ transaction }) => {
   let toTrader: TransactionPlayer[] = []
   switch (transaction?.type) {
     case TransactionType.Add:
-      {
-        added = players
-      }
+      added = players
       break
     case TransactionType.Drop:
       dropped = players

@@ -9,6 +9,7 @@ import { Team, Transaction, TransactionType } from '@/utils/yahoo/types/common'
 
 import Modal from '@/components/common/modal'
 import Record from '@/components/features/team/record'
+import Transactions from '@/components/features/team/tabs/transactions/transactions'
 
 const Skeleton = (
   <div className='w-16 h-3 rounded-full bg-zinc-400/50 animate-pulse' />
@@ -115,11 +116,15 @@ const TeamOverview: FC<Props> = ({ team }) => {
           {team ? (
             <button
               type='button'
-              className='underline underline-offset-2 decoration-1 decoration-dotted'
+              className={cn(
+                'underline-offset-2 decoration-1 decoration-dotted',
+                !!allTransactions?.length && 'underline',
+              )}
               onClick={() => {
                 setFilteredTransactions(allTransactions)
                 setIsTransModalOpen(true)
               }}
+              disabled={!allTransactions?.length}
             >
               {team?.numberOfMoves}
             </button>
@@ -133,11 +138,15 @@ const TeamOverview: FC<Props> = ({ team }) => {
           {team ? (
             <button
               type='button'
-              className='underline underline-offset-2 decoration-1 decoration-dotted'
+              className={cn(
+                'underline-offset-2 decoration-1 decoration-dotted',
+                !!trades?.length && 'underline',
+              )}
               onClick={() => {
                 setFilteredTransactions(trades)
                 setIsTransModalOpen(true)
               }}
+              disabled={!trades?.length}
             >
               {team?.numberOfTrades}
             </button>
@@ -164,9 +173,9 @@ const TeamOverview: FC<Props> = ({ team }) => {
         </div>
       </div>
 
-      {/* <Modal isOpen={isTransModalOpen} setIsOpen={setIsTransModalOpen}>
+      <Modal isOpen={isTransModalOpen} setIsOpen={setIsTransModalOpen}>
         <Transactions transactions={filteredTransactions} className='h-full' />
-      </Modal> */}
+      </Modal>
     </div>
   )
 }
