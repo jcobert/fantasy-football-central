@@ -19,12 +19,12 @@ const LeaguesLayout = ({
     >
       <div className='flex items-center backdrop-blur-lg bg-background/70 gap-4 border-b sticky z-10 top-[55px] max-sm:hidden'>
         {/* <Back href='/leagues' text='All leagues' className='max-sm:hidden' /> */}
-        <LeagueNavbar leagueId={params?.leagueid} />
+        <LeagueNavbar leagueKey={params?.leagueid} />
       </div>
       <div className='min-h-main-mobile px-1'>{children}</div>
       <div className='flex items-center backdrop-blur-lg bg-background/70 gap-4 border-t z-10 sticky pb-safe w-full bottom-0 sm:hidden'>
         {/* <Back href='/leagues' text='All leagues' className='max-sm:hidden' /> */}
-        <LeagueNavbar leagueId={params?.leagueid} />
+        <LeagueNavbar leagueKey={params?.leagueid} />
       </div>
     </PageLayout>
   )

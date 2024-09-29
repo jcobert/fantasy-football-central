@@ -58,8 +58,13 @@ export const authOptions: NextAuthOptions = {
           expiresAt: account?.expires_at,
         } as SessionToken
       }
+
       // Token exists and hasn't expired yet.
-      else if (token?.expiresAt && !isAccessTokenExpired(token)) {
+      else if (
+        token?.expiresAt &&
+        !token?.error &&
+        !isAccessTokenExpired(token)
+      ) {
         return token
       }
       // Token expired. Refresh token.
@@ -68,6 +73,8 @@ export const authOptions: NextAuthOptions = {
       }
     },
     async session({ session }) {
+      // if (token?.error) {
+      // }
       return session
     },
   },

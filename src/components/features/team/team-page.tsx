@@ -5,7 +5,10 @@ import { FC, useEffect } from 'react'
 
 import { League, Team } from '@/utils/yahoo/types/common'
 
-import { setLeagueKey } from '@/components/features/league/store/league-store'
+import {
+  setLeagueKey,
+  setUserTeams,
+} from '@/components/features/league/store/league-store'
 import Managers from '@/components/features/team/managers'
 import { useGetTeam } from '@/components/features/team/store/hooks/use-get-team'
 import TeamTabs from '@/components/features/team/team-tabs'
@@ -33,6 +36,12 @@ const TeamPage: FC<Props> = ({ teamKey, leagueKey }) => {
   })
 
   const team = response?.data?.team
+
+  useEffect(() => {
+    if (team?.isOwnedByCurrentLogin) {
+      setUserTeams(team?.teamKey)
+    }
+  }, [team])
 
   return (
     <div className='flex flex-col gap-8 p-2 pb-8 sm:px-8 md:px-24'>

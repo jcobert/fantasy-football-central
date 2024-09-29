@@ -1,24 +1,44 @@
 'use client'
 
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { FaThList } from 'react-icons/fa'
 import { GiAmericanFootballHelmet } from 'react-icons/gi'
 import { IoTrophy } from 'react-icons/io5'
 
 import { cn } from '@/utils/style'
+import { inferFromTeamKey } from '@/utils/yahoo/team'
+import { getUserOwnedTeams } from '@/utils/yahoo/user'
 
+import { useGetLeague } from '@/components/features/league/store/hooks/use-get-league'
+import { setUserTeams } from '@/components/features/league/store/league-store'
 import NavDropdown from '@/components/layout/header/nav-dropdown'
 import NavLink from '@/components/layout/header/nav-link'
 
 import { NavItem } from '@/configuration/nav'
 
 type Props = {
-  leagueId: string
+  leagueKey: string
 }
 
-const LeagueNavbar: FC<Props> = ({ leagueId }) => {
-  const baseUrl = `/leagues/${leagueId}`
+const LeagueNavbar: FC<Props> = ({ leagueKey }) => {
+  const { response } = useGetLeague({
+    leagueKey,
+    resources: ['settings', 'teams', 'standings'],
+    queryOptions: { enabled: true },
+  })
+
+  const league = response?.data?.league
+
+  const userTeams = getUserOwnedTeams(league)
+
+  useEffect(() => {
+    setUserTeams(userTeams)
+  }, [response])
+
+  const baseUrl = `/leagues/${leagueKey}`
+
+  const myTeamId = inferFromTeamKey(userTeams?.[0])?.teamId
 
   const navItems: NavItem[] = [
     {
@@ -39,7 +59,7 @@ const LeagueNavbar: FC<Props> = ({ leagueId }) => {
           <span>My Team</span>
         </div>
       ),
-      url: `${baseUrl}/team`,
+      url: myTeamId ? `${baseUrl}/team/${myTeamId}` : '',
     },
     {
       id: 'draft',
