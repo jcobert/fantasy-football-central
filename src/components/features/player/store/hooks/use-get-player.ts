@@ -24,11 +24,12 @@ export const useGetPlayer = ({
   playerKey,
   resources,
   subresources,
+  filter,
   queryOptions,
 }: Params) => {
   const { enabled = false, ...options } = queryOptions || {}
 
-  const url = playerQuery({ playerKey, resources, subresources })
+  const url = playerQuery({ playerKey, resources, subresources, filter })
 
   const queryEnabled = enabled && !!playerKey
 
@@ -39,6 +40,7 @@ export const useGetPlayer = ({
         playerKey,
         resources,
         subresources,
+        filter,
       }),
       enabled: queryEnabled,
       ...options,

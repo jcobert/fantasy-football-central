@@ -39,6 +39,7 @@ const PlayerCard: FC<Props> = ({
   const playerQuery = useGetPlayer({
     playerKey: player?.playerKey,
     resources: ['stats'],
+    filter: { type: 'week', week: 'current' },
     queryOptions: {
       enabled: !player?.playerStats,
       refetchOnWindowFocus: true,
@@ -46,15 +47,6 @@ const PlayerCard: FC<Props> = ({
   })
 
   const fetchedPlayer = playerQuery?.response?.data?.player
-
-  // const { data, isFetching } = useGetPlayer({
-  //   playerKey: player?.playerKey,
-  //   resource: 'stats',
-  //   filter: 'week',
-  //   week,
-  //   refetchOnWindowFocus: true,
-  //   enabled: !player?.playerStats,
-  // })
 
   const playerWithStats = getPlayerWithDetailedStats({
     player: fetchedPlayer ?? player,

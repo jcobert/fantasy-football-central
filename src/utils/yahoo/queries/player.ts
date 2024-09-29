@@ -5,18 +5,22 @@ export type PlayerQueryParams = {
   /**
    * Multiple player resources
    *
-   * `"/player;out=${...playerResources}"`
+   * `"/player;out=${...resources}"`
    */
   resources?: PlayerEndpointResource[]
   /**
    * A subresource of a single player resource.
    * Only applies when one player resource is provided.
    *
-   * `"/player/${playerResources}/${subresource}"`
+   * `"/player/${resources}/${subresources}"`
    */
   subresources?: string[]
-  filter?: 'season' | 'week' | 'lastweek' | 'lastmonth'
-  week?: number | 'current'
+  filter?: {
+    type?: 'season' | 'week' | 'lastweek' | 'lastmonth'
+    week?: number | 'current'
+  }
+  // filter?: 'season' | 'week' | 'lastweek' | 'lastmonth'
+  // week?: number | 'current'
 }
 
 export type PlayerDto = {
@@ -26,14 +30,14 @@ export type PlayerDto = {
 /**
  * Gets a single player.
  *
- * `"/player/${playerKey};out=${...playerResources}"`
+ * `"/player/${playerKey};out=${...resources}"`
  *
  * or
  *
- * `"/player/${playerKey}/${playerResources}/${subresource}"`
+ * `"/player/${playerKey}/${resources}/${subresources}"`
  */
 export const playerQuery = (params?: PlayerQueryParams) => {
-  const { playerKey } = params || {}
+  const { playerKey, filter } = params || {}
   const base = `/player/${playerKey}`
 
   const resources =
@@ -47,14 +51,18 @@ export const playerQuery = (params?: PlayerQueryParams) => {
   const subresource =
     resource && params?.subresources ? `/${params?.subresources}` : ''
 
+  const filterString = `${filter?.type ? `;type=${filter?.type}` : ''}${
+    filter?.type === 'week' && !!filter?.week ? `;week=${filter?.week}` : ''
+  }`
+
   if (resources) {
-    return `${base}${resources}`
+    return `${base}${resources}${filterString}`
   }
   if (subresource) {
-    return `${base}${resource}${subresource}`
+    return `${base}${resource}${subresource}${filterString}`
   }
   if (resource) {
-    return `${base}${resource}`
+    return `${base}${resource}${filterString}`
   }
-  return base
+  return `${base}${filterString}`
 }
