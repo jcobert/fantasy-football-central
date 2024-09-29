@@ -5,7 +5,11 @@ import { FC } from 'react'
 import { FiAlertTriangle } from 'react-icons/fi'
 
 import { cn } from '@/utils/style'
-import { getPlayerWithDetailedStats } from '@/utils/yahoo/player'
+import {
+  getPlayerWithDetailedStats,
+  isDangerStatus,
+  isWarningStatus,
+} from '@/utils/yahoo/player'
 import { Player, RosterPosition } from '@/utils/yahoo/types/common'
 
 import LoadingDots from '@/components/common/loading-dots'
@@ -63,10 +67,8 @@ const PlayerCard: FC<Props> = ({
   const starting = !onBench && !onIr
 
   const noStatus = !player?.status
-  const warningStatus = ['Q', 'P']?.includes(player?.status || '')
-  const dangerStatus = ['D', 'O', 'IR', 'IR-R', 'PUP-R', 'NA']?.includes(
-    player?.status || '',
-  )
+  const warningStatus = isWarningStatus(player?.status)
+  const dangerStatus = isDangerStatus(player?.status)
 
   return (
     <div
