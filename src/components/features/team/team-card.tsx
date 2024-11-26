@@ -23,6 +23,7 @@ type Props = {
   disabled?: boolean
   className?: string
   pastTeam?: boolean
+  indicateWildcard?: boolean
 }
 
 const TeamCard: FC<Props> = ({
@@ -32,6 +33,7 @@ const TeamCard: FC<Props> = ({
   disabled = false,
   className = '',
   pastTeam = false,
+  indicateWildcard = false,
 }) => {
   const leagueKey = getLeagueKeyFromTeamKey(team?.teamKey)
   const teamUrl = `/leagues/${leagueKey}/team/${team?.teamId}`
@@ -45,7 +47,7 @@ const TeamCard: FC<Props> = ({
   const league = response?.data?.league
 
   const leagueSettings = league?.settings
-  const teams = league?.teams?.team
+  const teams = league?.standings?.teams?.team
   const divisions = leagueSettings?.divisions?.division || []
 
   const teamsByDivision = rankTeamsByDivision(divisions, teams)
@@ -85,9 +87,13 @@ const TeamCard: FC<Props> = ({
             'min-w-[3ch] border-r dark:border-zinc-500 py-3 font-bold text-sm text-center- rounded-full- bg-zinc-200- px-1 bg-zinc-300- text-zinc-800-',
             {
               "after:content-['*'] after:text-sm after:font-normal":
-                isFirstWildcard && (league?.currentWeek ?? 0) > 1,
+                indicateWildcard &&
+                isFirstWildcard &&
+                (league?.currentWeek ?? 0) > 1,
               "after:content-['**'] after:text-sm after:font-normal":
-                isSecondWildcard && (league?.currentWeek ?? 0) > 1,
+                indicateWildcard &&
+                isSecondWildcard &&
+                (league?.currentWeek ?? 0) > 1,
             },
           )}
         >
@@ -95,7 +101,7 @@ const TeamCard: FC<Props> = ({
         </span>
       ) : null}
 
-      <div className='flex items-center flex-auto gap-3 flex-wrap'>
+      <div className='flex items-center flex-1 gap-3 flex-wrap'>
         {/* Avatar */}
         <img
           src={team?.teamLogos?.teamLogo?.url}
@@ -150,13 +156,13 @@ const TeamCard: FC<Props> = ({
   return disabled ? (
     <div
       className={cn(
-        'flex flex-col- flex-auto items-center flex-wrap gap-2 p-1 sm:p-3 border rounded-md transition border-zinc-400- dark:border-zinc-500 group bg-zinc-50 dark:bg-zinc-600',
+        'flex flex-col- flex-auto items-center flex-wrap gap-2 p-1 sm:p-3 border rounded-md transition border-zinc-400- dark:border-zinc-500 group bg-almost-white dark:bg-zinc-600',
         {
           // "border-emerald-500": isDivisionLeader,
           'border-amber-400': isLeagueWinner,
           'bg-amber-50': isLeagueWinner,
           'cursor-default': disabled,
-          'hover:bg-zinc-200 dark:hover:bg-zinc-500 hover:shadow': !disabled,
+          'hover:bg-zinc-100 dark:hover:bg-zinc-500 hover:shadow': !disabled,
           [className]: !!className,
         },
       )}
@@ -167,13 +173,13 @@ const TeamCard: FC<Props> = ({
     <Link
       href={teamUrl}
       className={cn(
-        'flex flex-col- flex-auto items-center flex-wrap gap-2 p-1 sm:p-3 border rounded-md transition border-zinc-400- dark:border-zinc-500 group bg-zinc-50 dark:bg-zinc-600',
+        'flex flex-col- flex-auto items-center flex-wrap gap-2 p-1 sm:p-3 border rounded-md transition border-zinc-400- dark:border-zinc-500 group bg-almost-white dark:bg-zinc-600',
         {
           // "border-emerald-500": isDivisionLeader,
           'border-amber-400': isLeagueWinner,
           'bg-amber-50': isLeagueWinner,
           'cursor-default': disabled,
-          'hover:bg-zinc-200 dark:hover:bg-zinc-500 hover:shadow': !disabled,
+          'hover:bg-zinc-100 dark:hover:bg-zinc-500 hover:shadow': !disabled,
           [className]: !!className,
         },
       )}
