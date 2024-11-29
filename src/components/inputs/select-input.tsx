@@ -39,8 +39,8 @@ export type SelectInputProps = Omit<Props, 'onChange'> & {
 const SelectInput: FC<SelectInputProps> = ({
   label = '',
   helper = '',
-  className = '',
-  labelClassName = '',
+  className,
+  labelClassName,
   id,
   name,
   onChange,
@@ -54,13 +54,16 @@ const SelectInput: FC<SelectInputProps> = ({
   }, [])
 
   return (
-    <label htmlFor={id || name} className={cn({ [className]: !!className })}>
+    <label htmlFor={id || name} className={cn(className)}>
       <span
-        className={cn('text-sm text-gray-500 dark:text-gray-200', {
-          "after:content-['*'] after:ml-[0.125rem] after:text-red-400":
-            props?.required,
-          [labelClassName]: !!labelClassName,
-        })}
+        className={cn(
+          'text-sm text-gray-500 dark:text-gray-200',
+          {
+            "after:content-['*'] after:ml-[0.125rem] after:text-red-400":
+              props?.required,
+          },
+          labelClassName,
+        )}
       >
         {label}
       </span>

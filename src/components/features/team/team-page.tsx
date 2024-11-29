@@ -29,6 +29,7 @@ const TeamPage: FC<Props> = ({ teamKey, leagueKey }) => {
       'roster',
       'stats',
       'matchups',
+      'standings',
       'transactions',
       'draftresults',
     ],

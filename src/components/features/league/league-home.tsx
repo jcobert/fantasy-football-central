@@ -38,9 +38,6 @@ const LeagueHome: FC<Props> = ({ leagueKey }) => {
 
   return (
     <div>
-      {/* <h1 className='text-3xl py-6 text-brand text-center text-balance font-medium max-w-prose'>
-        {league?.name}
-      </h1> */}
       {/* League Heading */}
       <div className='flex gap-3 items-center justify-center py-4 sm:py-6'>
         {league?.logoUrl ? (

@@ -7,8 +7,8 @@ import { cn } from '@/utils/style'
 type Props = {
   children?: ReactNode
   trigger?: ReactNode
-  isOpen: boolean
-  setIsOpen: (isOpen: boolean) => void
+  isOpen?: boolean
+  setIsOpen?: (isOpen: boolean) => void
   closeButton?: boolean
   className?: string
 }

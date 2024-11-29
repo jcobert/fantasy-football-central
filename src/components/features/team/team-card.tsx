@@ -16,6 +16,13 @@ import { OutcomeTotals, Team } from '@/utils/yahoo/types/common'
 import { useGetLeague } from '@/components/features/league/store/hooks/use-get-league'
 import ChampionDecoration from '@/components/features/team/champion-decoration'
 
+export type TeamSortMetric =
+  | 'division'
+  | 'record'
+  | 'pointsFor'
+  | 'pointsAgainst'
+  | 'pointDifferential'
+
 type Props = {
   team?: Team
   // rank?: number
@@ -24,6 +31,8 @@ type Props = {
   className?: string
   pastTeam?: boolean
   indicateWildcard?: boolean
+  detailedPoints?: boolean
+  emphasis?: TeamSortMetric
 }
 
 const TeamCard: FC<Props> = ({
@@ -34,6 +43,8 @@ const TeamCard: FC<Props> = ({
   className = '',
   pastTeam = false,
   indicateWildcard = false,
+  // detailedPoints = false,
+  emphasis,
 }) => {
   const leagueKey = getLeagueKeyFromTeamKey(team?.teamKey)
   const teamUrl = `/leagues/${leagueKey}/team/${team?.teamId}`
@@ -66,6 +77,10 @@ const TeamCard: FC<Props> = ({
   const rank = divisionRank ?? leagueRank
 
   const isLeagueWinner = pastTeam && leagueRank === 1
+
+  const pointsFor = team?.teamStandings?.pointsFor ?? 0
+  const pointsAgainst = team?.teamStandings?.pointsAgainst ?? 0
+  const pointDifferential = pointsFor - pointsAgainst
 
   if (!team)
     return (
@@ -111,11 +126,11 @@ const TeamCard: FC<Props> = ({
           height={48}
         />
 
-        <div className='flex-auto'>
+        <div className='flex-1'>
           <div className='flex items-center w-full gap-3 flex-wrap'>
-            <div className='flex flex-col flex-auto truncate'>
+            <div className='flex flex-col flex-1 truncate'>
               {/* Team Name */}
-              <span className='text-lg- font-semibold whitespace-pre-wrap group-hover:text-zinc-800_ dark:group-hover:text-zinc-200_ transition'>
+              <span className='font-semibold whitespace-pre-wrap transition'>
                 {team?.name}
               </span>
               {/* Managers */}
@@ -135,17 +150,48 @@ const TeamCard: FC<Props> = ({
             </div>
           </div>
           {!!team?.teamStandings && (
-            <div className='flex items-center gap-4 divide-x'>
-              <div className='flex items-center gap-2 flex-wrap'>
+            <div className='flex items-center gap-3 divide-x pt-px'>
+              <div
+                className={cn('flex items-center gap-2 flex-wrap', [
+                  // emphasis === 'record' && 'font-semibold',
+                ])}
+              >
                 {/* Record */}
                 <Record teamKey={team?.teamKey} teamRecord={record} />
                 {/* Trend */}
                 <Trend team={team} />
               </div>
-              {/* Points For */}
-              <span className='text-sm pl-3'>
-                {team?.teamStandings?.pointsFor?.toLocaleString()} pts
-              </span>
+              <div className='flex flex-wrap pl-3 gap-x-3 text-xs'>
+                <div className='flex flex-col'>
+                  {/* Points For */}
+                  <span
+                    className={cn([emphasis === 'pointsFor' && 'font-bold'])}
+                  >{`PF: ${pointsFor?.toLocaleString()}`}</span>
+                  {/* Points Against */}
+                  <span
+                    className={cn([
+                      emphasis === 'pointsAgainst' && 'font-bold',
+                    ])}
+                  >{`PA: ${pointsAgainst?.toLocaleString()}`}</span>
+                </div>
+                {/* Point Differential */}
+                <span
+                  className={cn([
+                    emphasis === 'pointDifferential' &&
+                      'font-bold inline-block',
+                    emphasis === 'pointDifferential' &&
+                      pointDifferential > 0 &&
+                      'text-emerald-700',
+                    emphasis === 'pointDifferential' &&
+                      pointDifferential < 0 &&
+                      ' text-rose-700',
+                  ])}
+                >
+                  {`${
+                    pointDifferential > 0 ? '+' : ''
+                  }${pointDifferential?.toLocaleString()}`}
+                </span>
+              </div>
             </div>
           )}
         </div>
