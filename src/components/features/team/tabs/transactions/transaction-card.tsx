@@ -8,6 +8,7 @@ import { forceArray } from '@/utils/array'
 import { cn } from '@/utils/style'
 import { formatPlayerName } from '@/utils/yahoo/player'
 import {
+  PositionType,
   Transaction,
   TransactionPlayer,
   TransactionType,
@@ -100,7 +101,7 @@ const TransactionCard: FC<Props> = ({ transaction }) => {
           // "bg-green-400/20": transaction?.type === TransactionType.Add,
           // "bg-red-400/20": transaction?.type === TransactionType.Drop,
           // "bg-zinc-300/20": transaction?.type === TransactionType.AddDrop,
-          'bg-sky-400/20 dark:bg-sky-400/20':
+          'bg-sky-400/20__ dark:bg-sky-400/20__ border-brand':
             transaction?.type === TransactionType.Trade,
         },
       )}
@@ -138,7 +139,10 @@ const TransactionCard: FC<Props> = ({ transaction }) => {
                     <span>
                       {formatPlayerName({
                         name: player?.name,
-                        format: 'short',
+                        format:
+                          player?.positionType === PositionType.DT
+                            ? 'full'
+                            : 'short',
                       })}
                     </span>
                     <div className='flex items-center gap-1 text-2xs pt-[2px] text-zinc-600 dark:text-zinc-400'>
@@ -166,7 +170,10 @@ const TransactionCard: FC<Props> = ({ transaction }) => {
                     <span>
                       {formatPlayerName({
                         name: player?.name,
-                        format: 'short',
+                        format:
+                          player?.positionType === PositionType.DT
+                            ? 'full'
+                            : 'short',
                       })}
                     </span>
                     <div className='flex items-center gap-1 text-2xs pt-[2px] text-zinc-600 dark:text-zinc-400'>
@@ -200,7 +207,10 @@ const TransactionCard: FC<Props> = ({ transaction }) => {
                         <span>
                           {formatPlayerName({
                             name: player?.name,
-                            format: 'short',
+                            format:
+                              player?.positionType === PositionType.DT
+                                ? 'full'
+                                : 'short',
                           })}
                         </span>
                         <div className='flex items-center gap-1 text-2xs pt-[2px] text-zinc-600 dark:text-zinc-400'>
@@ -227,7 +237,10 @@ const TransactionCard: FC<Props> = ({ transaction }) => {
                         <span>
                           {formatPlayerName({
                             name: player?.name,
-                            format: 'short',
+                            format:
+                              player?.positionType === PositionType.DT
+                                ? 'full'
+                                : 'short',
                           })}
                         </span>
                         <div className='flex items-center gap-1 text-2xs pt-[2px] text-zinc-600 dark:text-zinc-400'>
@@ -262,7 +275,10 @@ const TransactionCard: FC<Props> = ({ transaction }) => {
                       <span>
                         {formatPlayerName({
                           name: player?.name,
-                          format: 'short',
+                          format:
+                            player?.positionType === PositionType.DT
+                              ? 'full'
+                              : 'short',
                         })}
                       </span>
                       <div className='flex items-center gap-1 text-2xs pt-[2px] text-zinc-600 dark:text-zinc-400'>
@@ -290,7 +306,10 @@ const TransactionCard: FC<Props> = ({ transaction }) => {
                       <span>
                         {formatPlayerName({
                           name: player?.name,
-                          format: 'short',
+                          format:
+                            player?.positionType === PositionType.DT
+                              ? 'full'
+                              : 'short',
                         })}
                       </span>
                       <div className='flex items-center gap-1 text-2xs pt-[2px] text-zinc-600 dark:text-zinc-400'>

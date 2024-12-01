@@ -38,7 +38,7 @@ const TeamOverview: FC<Props> = ({ team }) => {
   return (
     <div className='flex flex-col gap-2 text-sm p-4 border border-t-0 rounded-t-none rounded-md border-zinc-300__ bg-zinc-50__ dark:border-zinc-500 dark:bg-zinc-600'>
       {/* Record */}
-      <div>
+      <div className='flex flex-col gap-1'>
         <h3 className='mb-1 font-medium border-b border-zinc-300 dark:border-zinc-500'>
           Record
         </h3>
@@ -64,7 +64,7 @@ const TeamOverview: FC<Props> = ({ team }) => {
       </div>
 
       {/* Points */}
-      <div>
+      <div className='flex flex-col gap-1'>
         <h3 className='mb-1 font-medium border-b border-zinc-300 dark:border-zinc-500'>
           Points
         </h3>
@@ -106,7 +106,7 @@ const TeamOverview: FC<Props> = ({ team }) => {
       </div>
 
       {/* Roster Moves */}
-      <div>
+      <div className='flex flex-col gap-1'>
         <h3 className='mb-1 font-medium border-b border-zinc-300 dark:border-zinc-500'>
           Transactions
         </h3>
@@ -157,7 +157,7 @@ const TeamOverview: FC<Props> = ({ team }) => {
       </div>
 
       {/* Waiver/FA */}
-      <div>
+      <div className='flex flex-col gap-1'>
         <h3 className='mb-1 font-medium border-b border-zinc-300 dark:border-zinc-500'>
           Free Agency
         </h3>
