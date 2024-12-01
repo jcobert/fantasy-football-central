@@ -26,7 +26,7 @@ const Collapsible: FC<Props> = ({
     <Collapse.Root
       open={open}
       onOpenChange={setOpen}
-      className={cn(['flex flex-col gap-1', className])}
+      className={cn(['flex flex-col gap-1__', className])}
     >
       <Collapse.Trigger
         className={cn([
@@ -35,7 +35,7 @@ const Collapsible: FC<Props> = ({
         ])}
       >
         <>
-          <h4 className='font-medium'>{header}</h4>
+          <span className='font-medium'>{header}</span>
           <div
             className={cn([
               'text-xl transition-transform',

@@ -4,6 +4,7 @@ import {
   PlayerName,
   PlayerPosition,
   PlayerStat,
+  PlayerStatus,
   PositionType,
   RosterPosition,
   Settings,
@@ -181,3 +182,19 @@ export const isStarting = (player?: Player) => {
     player?.selectedPosition?.position,
   )
 }
+
+export const isWarningStatus = (status?: PlayerStatus) =>
+  [PlayerStatus.Q, PlayerStatus.P]?.includes(status || '')
+
+export const isDangerStatus = (status?: PlayerStatus) =>
+  [
+    PlayerStatus.D,
+    PlayerStatus.O,
+    PlayerStatus.IR,
+    PlayerStatus.IRR,
+    PlayerStatus.PUPR,
+    PlayerStatus.NFIR,
+    PlayerStatus.NA,
+  ]?.includes(status || '')
+
+// export const playerStatusCategory = () => {}

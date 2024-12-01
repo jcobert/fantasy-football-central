@@ -14,7 +14,7 @@ import {
 import { useYahooQuery } from '@/hooks/use-yahoo-query'
 
 type QueryParams = {
-  leagueResources?: LeagueEndpointResource[]
+  resources?: LeagueEndpointResource[]
   teamResources?: TeamEndpointResource[]
 }
 
@@ -29,17 +29,17 @@ export const userLeaguesQueryKey = {
 }
 
 export const useGetUserLeagues = ({
-  leagueResources,
+  resources,
   teamResources,
   queryOptions,
 }: Params) => {
-  const url = userLeaguesQuery({ leagueResources, teamResources })
+  const url = userLeaguesQuery({ resources, teamResources })
 
   return useYahooQuery({
     url,
     queryOptions: {
       queryKey: userLeaguesQueryKey.filtered({
-        leagueResources,
+        resources,
         teamResources,
       }),
       ...queryOptions,

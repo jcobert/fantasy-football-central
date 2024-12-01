@@ -425,6 +425,8 @@ export type DraftPick = {
   cost: number
   teamKey: string
   playerKey: string
+  /** Only available if players subresource requested. */
+  players?: { player?: Player }
 }
 
 // __________________________________________________________________
@@ -458,7 +460,7 @@ export type Player = {
   playerNotesLastTimestamp?: number
   selectedPosition: SelectedPosition
   hasRecentPlayerNotes?: boolean
-  status?: string
+  status?: PlayerStatus
   statusFull?: string
   injuryNote?: string
   isEditable?: boolean
@@ -650,4 +652,15 @@ export enum PositionType {
 export enum StreakType {
   Loss = 'loss',
   Win = 'win',
+}
+export enum PlayerStatus {
+  P = 'P',
+  Q = 'Q',
+  D = 'D',
+  O = 'O',
+  IR = 'IR',
+  IRR = 'IR-R',
+  PUPR = 'PUP-R',
+  NFIR = 'NFI-R',
+  NA = 'NA',
 }

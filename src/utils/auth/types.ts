@@ -25,11 +25,14 @@ export type SessionToken = JWT & {
    */
   exp?: number
   jti?: string
+  error?: string
 }
 
 export type YahooAuthTokenSet = {
   access_token: string
   refresh_token: string
   expires_in: number
+  error?: string
+  error_description?: string
   [key: string]: unknown
 }

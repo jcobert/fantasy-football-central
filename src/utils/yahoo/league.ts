@@ -1,16 +1,14 @@
 import { League, PlayoffSettings } from './types/common'
 import { pickBy, sortBy } from 'lodash'
 
-import { LeagueKey } from '@/stores/use-user-store'
-
-export const sortLeagueKeys = (leagueKeys?: LeagueKey[] | null) => {
-  if (!leagueKeys?.length) return []
-  return leagueKeys
-    ? sortBy(leagueKeys, 'season')
-        ?.reverse()
-        ?.map((key) => key?.leagueKey || '')
-    : []
-}
+// export const sortLeagueKeys = (leagueKeys?: LeagueKey[] | null) => {
+//   if (!leagueKeys?.length) return []
+//   return leagueKeys
+//     ? sortBy(leagueKeys, 'season')
+//         ?.reverse()
+//         ?.map((key) => key?.leagueKey || '')
+//     : []
+// }
 
 export const getLeagueKeyFromTeamKey = (teamKey?: string) => {
   if (!teamKey) return ''

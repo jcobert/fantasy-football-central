@@ -3,6 +3,7 @@ import { NUM_WILDCARDS } from './constants'
 import { groupPlayersByPositionType } from './player'
 import {
   Division,
+  Game,
   League,
   Matchup,
   Player,
@@ -370,4 +371,18 @@ export const groupTeamsByWeekThenKey = (teams: Team[] = []) => {
     rostersByWeekThenTeam[key] = groupBy(rostersByWeek[key], (t) => t?.teamKey)
   })
   return rostersByWeekThenTeam
+}
+
+/** Parses game, league, and team IDs from a teamKey. */
+export const inferFromTeamKey = (teamKey?: string) => {
+  const parts = teamKey?.split('.') ?? []
+  return {
+    gameId: parts?.[0] || '',
+    leagueId: parts?.[2] || '',
+    teamId: parts?.[4] || '',
+  } as {
+    [key in keyof (Pick<Game, 'gameId'> &
+      Pick<League, 'leagueId'> &
+      Pick<Team, 'teamId'>)]?: string
+  }
 }
